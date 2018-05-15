@@ -1,0 +1,8 @@
+# Java Binary Files
+*.class
+
+
+# Documents
+*.doc
+*.docx
+*.pdf
