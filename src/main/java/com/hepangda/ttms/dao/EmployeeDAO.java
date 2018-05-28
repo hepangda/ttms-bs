@@ -19,17 +19,19 @@ CREATE VIEW User AS
     SELECT Emp_ID,Emp_LoginName,Emp_Password,Emp_Privilege FROM Employee;
 */
 public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
-    public int verifyLoginInfo(String username, String password) {
-        int retval = 0;
+    public boolean verifyLoginInfo(String username, String password) {
         try {
             Statement stmt = super.getStatement();
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM User WHERE Emp_LoginName=\'" + username
                     + "\' AND Emp_PASSWORD=md5(\'" + password + "\');");
             rs.next();
-            retval = rs.getInt(1);
+            int retval = rs.getInt(1);
+//            System.out.println(retval);
+            if (retval == 1)
+                return true;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return retval;
+        return false;
     }
 }

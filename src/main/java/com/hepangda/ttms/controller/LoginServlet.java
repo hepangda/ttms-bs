@@ -1,6 +1,8 @@
 package com.hepangda.ttms.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.hepangda.ttms.model.LoginInfo;
+import com.hepangda.ttms.model.LoginResult;
 import com.hepangda.ttms.service.LoginService;
 
 import javax.servlet.ServletException;
@@ -27,11 +29,8 @@ public class LoginServlet extends HttpServlet {
             req.getParameter("username"), req.getParameter("password")
         );
 
-        int ret = LoginService.login(info);
-        if (ret == 0) {
-            res.getWriter().println("{\"result\": false}");
-        } else {
-            res.getWriter().println("{\"result\": true}");
-        }
+        session.setAttribute("info", info);
+        LoginResult ret = LoginService.login(info);
+        res.getWriter().println(JSON.toJSONString(ret));
     }
 }
