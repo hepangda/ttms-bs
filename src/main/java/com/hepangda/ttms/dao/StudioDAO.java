@@ -44,6 +44,8 @@ public class StudioDAO extends BaseDAO implements IStudioDAO {
         }catch(Exception ex){
             ex.printStackTrace();
         }
+
+        return 0;
     }
     public int Modify_Studio(String OldName,String NewName){
         boolean ret;
@@ -58,6 +60,8 @@ public class StudioDAO extends BaseDAO implements IStudioDAO {
         }catch(Exception ex){
             ex.printStackTrace();
         }
+
+        return 0;
     }
     public ArrayList<Studio> GetStduios(int begin, int end){
             ArrayList<Studio> res = new ArrayList<Studio>();

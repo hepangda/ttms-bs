@@ -1,6 +1,7 @@
 package com.hepangda.ttms.controller;
 
-import com.hepangda.ttms.model.LoginInfo;
+import com.hepangda.ttms.model.Employee;
+import com.hepangda.ttms.model.LoginRequest;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -15,12 +16,13 @@ public class LoginFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest)servletRequest;
         HttpServletResponse res = (HttpServletResponse)servletResponse;
         HttpSession ss = req.getSession();
-        LoginInfo info = (LoginInfo)ss.getAttribute("info");
+
+        Employee info = (Employee) ss.getAttribute("currentUser");
         if (info == null) {
             res.sendRedirect("/nologin");
             return;
         }
-        System.out.println(info.getLoginName());
+
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }

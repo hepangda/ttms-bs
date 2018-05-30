@@ -2,8 +2,8 @@ package com.hepangda.ttms.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class LoginInfo {
-    public LoginInfo(String loginName, String password) {
+public class LoginRequest {
+    public LoginRequest(String loginName, String password) {
         this.loginName = loginName;
         this.password = password;
     }

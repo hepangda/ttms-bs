@@ -1,8 +1,8 @@
 package com.hepangda.ttms.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hepangda.ttms.model.LoginInfo;
-import com.hepangda.ttms.model.LoginResult;
+import com.hepangda.ttms.model.LoginRequest;
+import com.hepangda.ttms.model.LoginResponse;
 import com.hepangda.ttms.service.LoginService;
 
 import javax.servlet.ServletException;
@@ -23,14 +23,16 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession();
-        LoginInfo info = new LoginInfo(
+        LoginRequest info = new LoginRequest(
             req.getParameter("username"), req.getParameter("password")
         );
 
-        session.setAttribute("info", info);
-        LoginResult ret = LoginService.login(info);
+        LoginResponse ret = LoginService.login(info);
+        if (ret.isOk()) {
+            session.setAttribute("currentUser", ret.getLogUser());
+        }
+
         res.getWriter().println(JSON.toJSONString(ret));
     }
 }

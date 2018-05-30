@@ -25,13 +25,10 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
         int retval = 0;
         try {
             Statement stmt = super.getStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM User WHERE Emp_LoginName=\'" + username
-                    + "\' AND Emp_PASSWORD=md5(\'" + password + "\');");
-            rs.next();
-            int retval = rs.getInt(1);
-//            System.out.println(retval);
-            if (retval == 1)
-                return 1;
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT COUNT(*) FROM User WHERE Emp_LoginName=\'" + username
+                    + "\' AND Emp_Password=md5(\'" + password + "\');"
+            );
 
             rs.next();//不然什么数据都没有
             retval = rs.getInt(1);
@@ -40,86 +37,113 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
         }
         return retval;
     }
-    public int AddEmployee(String name,int age,int phone,String position,String password){
-        int retval = 0;
-        try{
-            Statement st = super.getStatement();
-            ResultSet rs = st.executeQuery("insert into Employee values(\'"+name+"\',"
-                        +age+","+phone+",\'"+position+"\',"+"md5(\'" + password + ")\');");
-            rs.next();
-            retval = rs.getInt(1);
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-        return retval;//返回序号
-    }
-    public int DeleteEmployee(int ID){
-        boolean ret;
-        try{
-            Statement st = super.getStatement();
-            ret = st.execute("delete from table Employee where Emp_ID="+ID+";");
-            if(ret){
-                return 1;//成功
-            }else{
-                return 0;//失败
+
+    private ArrayList<Employee> queryWhere(String cond) {
+        ArrayList<Employee> res = new ArrayList<>();
+
+        try {
+            Statement stmt = super.getStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Employee WHERE " + cond + ";");
+
+            while (rs.next()) {
+                res.add(new Employee(
+                   rs.getInt("Emp_ID"), rs.getString("Emp_LoginName"),
+                   rs.getString("Emp_Name"), rs.getInt("Emp_BornYear"),
+                   rs.getString("Emp_PhoneNumber"), rs.getShort("Emp_Privilege")
+                ));
             }
 
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-    }
-    public int DeleteEmployee(String name){
-        boolean ret;
-        try{
-            Statement st = super.getStatement();
-            ret = st.execute("delete from table Employee where Emp_Name=\'"+name+"\';");
-            if(ret){
-                return 1;//成功
-            }else{
-                return 0;//失败
-            }
-
-        }catch(Exception ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-    }
-    public ArrayList<Employee> QueryEmployee(int ID){
-        ArrayList<Employee> res = new ArrayList<Employee>();
-        Employee ret =new Employee();
-        try{
-            Statement st = super.getStatement();
-            ResultSet rs = st.executeQuery("select * from Employee where Emp_ID="+ID+";");
-            while(rs.next()){
-                ret.setID(rs.getInt("Emp_ID"));
-                ret.setEmpLoginName(rs.getString("Emp_LoginName"));
-                ret.setEmpName(rs.getString("Emp_Name"));
-                ret.setBornYear(rs.getInt("Emp_BornYear"));
-                ret.setPrivilege(rs.getInt("Emp_Privilege"));
-                res.add(ret);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
         return res;
     }
-    public ArrayList<Employee> QueryEmployee(String name){
-        ArrayList<Employee> res = new ArrayList<Employee>();
-        Employee ret =new Employee();
-        try{
-            Statement st = super.getStatement();
-            ResultSet rs = st.executeQuery("select * from Employee where Emp_Name=\'"+name+"\';");
-            while(rs.next()){
-                ret.setID(rs.getInt("Emp_ID"));
-                ret.setEmpLoginName(rs.getString("Emp_LoginName"));
-                ret.setEmpName(rs.getString("Emp_Name"));
-                ret.setBornYear(rs.getInt("Emp_BornYear"));
-                ret.setPrivilege(rs.getInt("Emp_Privilege"));
-                res.add(ret);
-            }
-        }catch (Exception ex){
+
+    @Override
+    public ArrayList<Employee> queryById(int id) {
+        return queryWhere("Emp_ID=" + id);
+    }
+
+    @Override
+    public ArrayList<Employee> queryByLoginName(String loginName) {
+        return queryWhere("Emp_LoginName=\'" + loginName + "\'");
+    }
+
+    @Override
+    public ArrayList<Employee> queryByName(String name) {
+        return queryWhere("Emp_Name=\'" + name + "\';");
+    }
+
+    @Override
+    public int changePassword(int id, String oldPassword, String newPassword) {
+        if (queryWhere("Emp_ID=" + id + " AND Emp_Password=md5(\'" + oldPassword + "\')").isEmpty()) {
+            return -1;
+        }
+
+        try {
+            Statement stmt = super.getStatement();
+
+            int rs = stmt.executeUpdate("UPDATE Employee SET Emp_Password=md5(\'"
+                    + newPassword + "\') WHERE Emp_ID=" + id + ";");
+
+            if (rs > 0)
+                return 0;
+            return -2;
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return res;
+        return -3;
     }
+
+    @Override
+    public int add(String loginName, String name, String password, int bornYear, String phoneNumber, short privilege) {
+        try {
+            Statement stmt = super.getStatement();
+            int rs = stmt.executeUpdate("INSERT INTO Employee VALUES(default,\'"
+                    + loginName + "\',md5(\'" + password + "\'),\'" + name + "\',"
+                    + bornYear + ",\'" + phoneNumber + "\'," + privilege + ");");
+
+            if (rs > 0)
+                return 0;
+            return -1;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return -2;
+    }
+
+
+
+//    public int DeleteEmployee(int ID){
+//        boolean ret;
+//        try{
+//            Statement st = super.getStatement();
+//            ret = st.execute("delete from table Employee where Emp_ID="+ID+";");
+//            if(ret){
+//                return 1;//成功
+//            }else{
+//                return 0;//失败
+//            }
+//
+//        }catch(Exception ex){
+//            ex.printStackTrace();
+//        }
+//    }
+//    public int DeleteEmployee(String name){
+//        boolean ret;
+//        try{
+//            Statement st = super.getStatement();
+//            ret = st.execute("delete from table Employee where Emp_Name=\'"+name+"\';");
+//            if(ret){
+//                return 1;//成功
+//            }else{
+//                return 0;//失败
+//            }
+//
+//        }catch(Exception ex){
+//            ex.printStackTrace();
+//        }
+//
+//    }
 }
