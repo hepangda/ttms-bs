@@ -1,4 +1,4 @@
-package com.hepangda.ttms;
+package com.hepangda.ttms.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.hepangda.ttms.model.AddEmployeeRequest;
@@ -12,10 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/api/employee/add")
-public class AddEmployeeServlet extends HttpServlet {
+/*
+    POST 添加
+ */
+
+@WebServlet("/api/employee")
+public class EmployeeServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AddEmployeeRequest aer = new AddEmployeeRequest(
                 req.getParameter("name"), req.getParameter("loginName"),
                 req.getParameter("password"), Integer.valueOf(req.getParameter("bornYear")),

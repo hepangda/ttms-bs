@@ -3,11 +3,11 @@ package com.hepangda.ttms.model;
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class CheckLoginResponse {
-    @JSONField(name="loged")
+    @JSONField(name = "loged")
     private boolean loged;
-    @JSONField(name="name")
+    @JSONField(name = "name")
     private String name;
-    @JSONField(name="privilege")
+    @JSONField(name = "privilege")
     private short privilege;
 
     public CheckLoginResponse(boolean loged, String name, short privilege) {
