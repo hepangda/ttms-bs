@@ -1,13 +1,22 @@
 package com.hepangda.ttms.model;
-public class Employee {
-    private int id;
-    private String loginName;
-    private String name;
-    private int bornYear;
-    private String phoneNumber;
-    private short privilege;
 
-    public Employee(int id, String loginName, String name, int bornYear, String phoneNumber, short privilege) {
+import com.alibaba.fastjson.annotation.JSONField;
+
+public class Employee {
+    @JSONField(name = "uid")
+    private int id;
+    @JSONField(name = "loginname")
+    private String loginName;
+    @JSONField(name = "name")
+    private String name;
+    @JSONField(name = "bornyear")
+    private int bornYear;
+    @JSONField(name = "phonenumber")
+    private String phoneNumber;
+    @JSONField(name = "privilege")
+    private int privilege;
+
+    public Employee(int id, String loginName, String name, int bornYear, String phoneNumber, int privilege) {
         this.id = id;
         this.loginName = loginName;
         this.name = name;
@@ -16,7 +25,7 @@ public class Employee {
         this.privilege = privilege;
     }
 
-    public Employee(String loginName, String name, int bornYear, String phoneNumber, short privilege) {
+    public Employee(String loginName, String name, int bornYear, String phoneNumber, int privilege) {
         this.loginName = loginName;
         this.name = name;
         this.bornYear = bornYear;
@@ -68,11 +77,11 @@ public class Employee {
         this.bornYear = bornYear;
     }
 
-    public short getPrivilege() {
+    public int getPrivilege() {
         return privilege;
     }
 
-    public void setPrivilege(short privilege) {
+    public void setPrivilege(int privilege) {
         this.privilege = privilege;
     }
 }

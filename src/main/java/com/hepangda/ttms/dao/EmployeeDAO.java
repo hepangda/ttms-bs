@@ -24,32 +24,35 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
     public int verifyLoginInfo(String username, String password) {
         int retval = 0;
         try {
-            Statement stmt = super.getStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT COUNT(*) FROM User WHERE Emp_LoginName=\'" + username
-                    + "\' AND Emp_Password=md5(\'" + password + "\');"
+            PreparedStatement stmt = super.getStatement(
+                    "SELECT COUNT(*) FROM User WHERE Emp_LoginName=? AND Emp_Password=md5(?);"
             );
+
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
 
             rs.next();//不然什么数据都没有
             retval = rs.getInt(1);
         } catch (Exception ex) {
             ex.printStackTrace();
+            return 1;
         }
-        return retval;
+        return 2;
     }
 
     private ArrayList<Employee> queryWhere(String cond) {
         ArrayList<Employee> res = new ArrayList<>();
 
         try {
-            Statement stmt = super.getStatement();
+            Statement stmt = super.getPureStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Employee WHERE " + cond + ";");
 
             while (rs.next()) {
                 res.add(new Employee(
-                   rs.getInt("Emp_ID"), rs.getString("Emp_LoginName"),
-                   rs.getString("Emp_Name"), rs.getInt("Emp_BornYear"),
-                   rs.getString("Emp_PhoneNumber"), rs.getShort("Emp_Privilege")
+                        rs.getInt("Emp_ID"), rs.getString("Emp_LoginName"),
+                        rs.getString("Emp_Name"), rs.getInt("Emp_BornYear"),
+                        rs.getString("Emp_PhoneNumber"), rs.getShort("Emp_Privilege")
                 ));
             }
 
@@ -82,10 +85,14 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
         }
 
         try {
-            Statement stmt = super.getStatement();
+            PreparedStatement stmt = super.getStatement(
+                    "UPDATE Employee SET Emp_Password=md5(?) WHERE Emp_ID=?;"
+            );
 
-            int rs = stmt.executeUpdate("UPDATE Employee SET Emp_Password=md5(\'"
-                    + newPassword + "\') WHERE Emp_ID=" + id + ";");
+            stmt.setString(1, newPassword);
+            stmt.setInt(2, id);
+
+            int rs = stmt.executeUpdate();
 
             if (rs > 0)
                 return 0;
@@ -99,10 +106,18 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
     @Override
     public int add(String loginName, String name, String password, int bornYear, String phoneNumber, short privilege) {
         try {
-            Statement stmt = super.getStatement();
-            int rs = stmt.executeUpdate("INSERT INTO Employee VALUES(default,\'"
-                    + loginName + "\',md5(\'" + password + "\'),\'" + name + "\',"
-                    + bornYear + ",\'" + phoneNumber + "\'," + privilege + ");");
+            PreparedStatement stmt = super.getStatement(
+                    "INSERT INTO Employee VALUES(default,?,md5(?),?,?,?,?);"
+            );
+
+            stmt.setString(1, loginName);
+            stmt.setString(2, password);
+            stmt.setString(3, name);
+            stmt.setInt(4, bornYear);
+            stmt.setString(5, phoneNumber);
+            stmt.setInt(6, (int)privilege);
+
+            int rs = stmt.executeUpdate();
 
             if (rs > 0)
                 return 0;
@@ -113,37 +128,4 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
         return -2;
     }
 
-
-
-//    public int DeleteEmployee(int ID){
-//        boolean ret;
-//        try{
-//            Statement st = super.getStatement();
-//            ret = st.execute("delete from table Employee where Emp_ID="+ID+";");
-//            if(ret){
-//                return 1;//成功
-//            }else{
-//                return 0;//失败
-//            }
-//
-//        }catch(Exception ex){
-//            ex.printStackTrace();
-//        }
-//    }
-//    public int DeleteEmployee(String name){
-//        boolean ret;
-//        try{
-//            Statement st = super.getStatement();
-//            ret = st.execute("delete from table Employee where Emp_Name=\'"+name+"\';");
-//            if(ret){
-//                return 1;//成功
-//            }else{
-//                return 0;//失败
-//            }
-//
-//        }catch(Exception ex){
-//            ex.printStackTrace();
-//        }
-//
-//    }
 }

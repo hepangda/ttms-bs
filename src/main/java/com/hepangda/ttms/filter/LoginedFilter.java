@@ -12,15 +12,15 @@ import java.io.IOException;
 @WebFilter("/api/*")
 public class LoginedFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest)servletRequest;
-        HttpServletResponse res = (HttpServletResponse)servletResponse;
-        HttpSession ss = req.getSession();
-
-        Employee info = (Employee) ss.getAttribute("currentUser");
-        if (info == null) {
-            res.sendRedirect("/nologin");
-            return;
-        }
+//        HttpServletRequest req = (HttpServletRequest)servletRequest;
+//        HttpServletResponse res = (HttpServletResponse)servletResponse;
+//        HttpSession ss = req.getSession();
+//
+//        Employee info = (Employee) ss.getAttribute("currentUser");
+//        if (info == null) {
+//            res.sendRedirect("/nologin");
+//            return;
+//        }
 
         filterChain.doFilter(servletRequest, servletResponse);
     }

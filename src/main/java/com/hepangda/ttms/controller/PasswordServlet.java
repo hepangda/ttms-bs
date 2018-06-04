@@ -4,6 +4,7 @@ package com.hepangda.ttms.controller;
 import com.alibaba.fastjson.JSON;
 import com.hepangda.ttms.model.*;
 import com.hepangda.ttms.service.LoginService;
+import com.hepangda.ttms.util.ExtendedServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +20,12 @@ import java.io.IOException;
  */
 
 @WebServlet("/api/password")
-public class PasswordServlet extends HttpServlet {
+public class PasswordServlet extends ExtendedServlet {
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doOptions(req, resp);
+    }
+
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -27,7 +33,8 @@ public class PasswordServlet extends HttpServlet {
         ChangePasswordRequest cpr = new ChangePasswordRequest(
                 -1, req.getParameter("oldpwd"), req.getParameter("newpwd")
         );
-
+        System.out.println(cpr.getOldPassword());
+        System.out.println(cpr.getNewPassword());
         String uid = req.getParameter("uid");
         if (uid != null) {
             cpr.setUid(Integer.valueOf(uid));
@@ -44,7 +51,7 @@ public class PasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        Employee currentUser = (Employee)session.getAttribute("currentUser");
+        Employee currentUser = (Employee) session.getAttribute("currentUser");
 
         CheckOriginPasswordRequest copr = new CheckOriginPasswordRequest(
                 currentUser.getLoginName(), req.getParameter("pwd"));

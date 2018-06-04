@@ -1,9 +1,6 @@
 package com.hepangda.ttms.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class BaseDAO {
     private static final String DB_USERNAME = "root";
@@ -23,7 +20,11 @@ public class BaseDAO {
         }
     }
 
-    protected Statement getStatement() throws SQLException {
+    protected Statement getPureStatement() throws SQLException {
         return _Conn.createStatement();
+    }
+
+    protected PreparedStatement getStatement(String sql) throws SQLException {
+        return _Conn.prepareStatement(sql);
     }
 }

@@ -2,36 +2,28 @@ package com.hepangda.ttms.service;
 
 import com.hepangda.ttms.idao.DAOFactory;
 import com.hepangda.ttms.idao.IEmployeeDAO;
-import com.hepangda.ttms.model.*;
+import com.hepangda.ttms.model.dto.LoginRequest;
+import com.hepangda.ttms.model.dto.LoginResponse;
+
+import javax.servlet.http.HttpSession;
 
 public class LoginService {
-    private static LoginResponse frLogin = new LoginResponse(false, new Employee());
-    private static CheckOriginPasswordResponse frCheckOriginPassword = new CheckOriginPasswordResponse(false);
-    private static CheckOriginPasswordResponse scCheckOriginPassword = new CheckOriginPasswordResponse(true);
-    private static ChangePasswordResponse frChangePassword = new ChangePasswordResponse(false);
-    private static ChangePasswordResponse scChangePassword = new ChangePasswordResponse(true);
-
-    public static LoginResponse login(LoginRequest info) {
-        IEmployeeDAO iedao = DAOFactory.createEmployeeDAO();
-        int res = iedao.verifyLoginInfo(info.getLoginName(), info.getPassword());
+    public static LoginResponse login(HttpSession session, LoginRequest ureq) {
+        IEmployeeDAO dao = DAOFactory.createEmployeeDAO();
+        int res = dao.verifyLoginInfo(ureq.getUsername(), ureq.getPassword());
 
         if (res == 1) {
-            return new LoginResponse(true, iedao.queryByLoginName(info.getLoginName()).get(0));
+            return LoginResponse.createLogin(true, "login success.");
         }
 
-        return frLogin;
+        return LoginResponse.createLogin(false, "nope");
     }
 
-    public static CheckOriginPasswordResponse checkOriginPassword(CheckOriginPasswordRequest req) {
-        LoginResponse res = login(new LoginRequest(req.getUsername(), req.getTryPassword()));
-        return res.isOk() ? scCheckOriginPassword : frCheckOriginPassword;
+    public static LoginResponse logout(HttpSession session, LoginRequest ureq) {
+
     }
 
-    public static ChangePasswordResponse changePassword(ChangePasswordRequest req) {
-        int res = DAOFactory.createEmployeeDAO().changePassword(
-                req.getUid(), req.getOldPassword(), req.getNewPassword()
-        );
+    public static LoginResponse checkLogin(HttpSession session, LoginRequest ureq) {
 
-        return res == 0 ? scChangePassword : frChangePassword;
     }
 }
