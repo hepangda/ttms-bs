@@ -11,7 +11,8 @@ public class DAOFactory {
     }
 
     public static IStudioDAO createStudioDAO() {
-        return new StudioDAO();
+//        return new StudioDAO();
+        return null;
     }
 
 }

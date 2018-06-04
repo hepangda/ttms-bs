@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import com.hepangda.ttms.idao.IStudioDAO;
 import com.hepangda.ttms.model.Studio;
 
-public class StudioDAO extends BaseDAO implements IStudioDAO {
+public class StudioDAO extends BaseDAO /*implements IStudioDAO */{
     public int Add_Studio(String name, int type, int row, int column) {
         int retval = 0;
         try {

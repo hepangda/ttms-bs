@@ -3,14 +3,12 @@ package com.hepangda.ttms.model.dto;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.hepangda.ttms.model.Employee;
 
-import java.util.ArrayList;
-
 public class EmployeeRequest {
     @JSONField(name = "type")
     private String type;
 
     @JSONField(name = "employee")
-    private ArrayList<Employee> employees;
+    private Employee employees;
 
     @JSONField(name = "page")
     private int page;
@@ -26,11 +24,11 @@ public class EmployeeRequest {
         this.type = type;
     }
 
-    public ArrayList<Employee> getEmployees() {
+    public Employee getEmployees() {
         return employees;
     }
 
-    public void setEmployees(ArrayList<Employee> employees) {
+    public void setEmployees(Employee employees) {
         this.employees = employees;
     }
 

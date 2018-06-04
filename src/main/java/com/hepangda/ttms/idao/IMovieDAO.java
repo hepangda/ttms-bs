@@ -14,4 +14,5 @@ Create Table: CREATE TABLE `Movie` (
  */
 public interface IMovieDAO {
 //    int AddMovie(String name,int type,)
+
 }

@@ -1,7 +1,6 @@
 package com.hepangda.ttms.util;
 
 import com.alibaba.fastjson.JSON;
-import com.sun.deploy.net.HttpRequest;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +15,8 @@ public class ExtendedServlet extends HttpServlet {
         DELETE,
     }
 
-    private final String GET_JSON_NAME = "JSONV";
-
-
     protected <T> T getUR(HttpServletRequest req, RequestType rt, Class<T> cls) {
+        final String GET_JSON_NAME = "JSONV";
         try {
             switch (rt) {
                 case GET:

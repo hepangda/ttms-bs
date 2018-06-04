@@ -33,7 +33,7 @@ public class LoginResponse {
         this.ok = ok;
     }
 
-    static public LoginResponse createLogin(boolean ok, String message) {
+    static public LoginResponse createLoginLogout(boolean ok, String message) {
         return new LoginResponse(ok, message);
     }
 
@@ -47,10 +47,6 @@ public class LoginResponse {
 
     static public LoginResponse createCheckLogin(boolean ok, Employee user) {
         return new LoginResponse(ok, user);
-    }
-
-    static public LoginResponse createLogout(boolean ok) {
-        return new LoginResponse(ok);
     }
 
     public boolean isOk() {

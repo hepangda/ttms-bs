@@ -16,6 +16,9 @@ import java.io.IOException;
 
 /*
     POST 添加
+    PUT 修改
+    DELETE 删除
+    GET 获取
  */
 
 @WebServlet("/api/employee")
@@ -23,10 +26,32 @@ public class EmployeeServlet extends ExtendedServlet {
     private EmployeeRequest getUR(HttpServletRequest req, RequestType type) {
         return super.getUR(req, type, EmployeeRequest.class);
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         EmployeeRequest ureq = getUR(req, RequestType.POST);
         EmployeeResponse ures = EmployeeService.add(req.getSession(), ureq);
+        resp.getWriter().println(JSON.toJSONString(ures));
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        EmployeeRequest ureq = getUR(req, RequestType.GET);
+        EmployeeResponse ures = EmployeeService.fetch(req.getSession(), ureq);
+        resp.getWriter().println(JSON.toJSONString(ures));
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        EmployeeRequest ureq = getUR(req, RequestType.DELETE);
+        EmployeeResponse ures = EmployeeService.delete(req.getSession(), ureq);
+        resp.getWriter().println(JSON.toJSONString(ures));
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        EmployeeRequest ureq = getUR(req, RequestType.PUT);
+        EmployeeResponse ures = EmployeeService.modify(req.getSession(), ureq);
         resp.getWriter().println(JSON.toJSONString(ures));
     }
 }
