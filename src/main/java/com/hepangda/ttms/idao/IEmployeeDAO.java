@@ -15,4 +15,6 @@ public interface IEmployeeDAO {
     int delete(Employee emp);
 
     QueryResult<Employee> query(Employee ek);
+
+    int update(Employee emp);
 }

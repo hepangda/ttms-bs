@@ -46,7 +46,7 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
 
     @Override
     public int add(Employee emp) {
-        return normalInsert(emp, 103, 102);
+        return normalInsert(emp, 102, 103);
     }
 
     public QueryResult<Employee> query(Employee ek) {
@@ -60,6 +60,11 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
 
     @Override
     public int delete(Employee emp) {
-        return normalInsert(emp, 105, 102);
+        return normalInsert(emp, 102, 105);
+    }
+
+    @Override
+    public int update(Employee emp) {
+        return normalUpdate(emp, 102, 106);
     }
 }

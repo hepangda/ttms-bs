@@ -279,4 +279,100 @@ class BaseDAO {
         }
         return failedErrno;
     }
+
+    private <T> String getUpdateSQLString(T obj) {
+        QueryTable qta = obj.getClass().getAnnotation(QueryTable.class);
+        if (qta == null) {
+            throw new FrameworkException();
+        }
+
+        StringBuilder baseString = new StringBuilder("Update " + qta.value() + " SET");
+        boolean first = true;
+        try {
+            Field[] fields = obj.getClass().getDeclaredFields();
+            for (Field f: fields) {
+                f.setAccessible(true);
+                if (notZeroValue(f, obj)) {
+                    QueryKey qka = f.getAnnotation(QueryKey.class);
+                    if (qka == null || qka.primaryKey()) {
+                        continue;
+                    }
+                    if (first) {
+                        baseString.append(' ');
+                        first = false;
+                    } else {
+                        baseString.append(",");
+
+                    }
+                    baseString.append(qka.value());
+                    baseString.append("=?");
+                }
+            }
+
+            first = true;
+            for (Field f: fields) {
+                f.setAccessible(true);
+                if (notZeroValue(f, obj)) {
+                    first = false;
+                    QueryKey qka = f.getAnnotation(QueryKey.class);
+                    if (qka != null && qka.primaryKey()) {
+                        baseString.append(" WHERE ");
+                        baseString.append(qka.value());
+                        baseString.append("=?");
+                        break;
+                    }
+                }
+            }
+
+            if (first)
+                throw new DangerSQLException();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        }
+
+        if (baseString.toString().endsWith("SET"))
+            baseString.delete(baseString.length() - 4, baseString.length());
+
+        baseString.append(';');
+        return baseString.toString();
+    }
+
+    private <T> PreparedStatement getUpdateStatement(T tk) throws SQLException, IllegalAccessException {
+        PreparedStatement stmt = getStatement(getUpdateSQLString(tk));
+        int i = 1;
+
+        Field[] fields = tk.getClass().getDeclaredFields();
+        for (Field f: fields) {
+            f.setAccessible(true);
+            Object tko = f.get(tk);
+            QueryKey qka = f.getAnnotation(QueryKey.class);
+            if (qka != null && notZeroValue(f, tk) && !qka.primaryKey()) {
+                stmt.setObject(i++, tko);
+            }
+        }
+
+        for (Field f: fields) {
+            f.setAccessible(true);
+            Object tko = f.get(tk);
+            if (notZeroValue(f, tk)) {
+                QueryKey qka = f.getAnnotation(QueryKey.class);
+                if (qka != null && qka.primaryKey()) {
+                    stmt.setObject(i++, tko);
+                }
+            }
+        }
+        return stmt;
+    }
+
+    <T> int normalUpdate(T tk, int failedErrno, int successErrno) {
+        try {
+            PreparedStatement stmt = getUpdateStatement(tk);
+            stmt.executeUpdate();
+
+            return successErrno;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return failedErrno;
+    }
 }

@@ -9,6 +9,7 @@ public @interface QueryKey {
     boolean select() default true;
     boolean insert() default true;
     boolean delete() default false;
+    boolean primaryKey() default false;
     boolean specialInsert() default false;
     String insertString() default "";
 }

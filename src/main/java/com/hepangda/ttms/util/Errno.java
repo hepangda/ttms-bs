@@ -12,6 +12,7 @@ public class Errno {
         put(103, "Add employee success.");
         put(104, "Fetch employee success.");
         put(105, "Delete employee success.");
+        put(106, "Update employee success.");
         put(199, "Permission denied.");
     }};
 
