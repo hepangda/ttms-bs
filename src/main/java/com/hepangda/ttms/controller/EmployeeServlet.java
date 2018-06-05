@@ -19,6 +19,8 @@ import java.io.IOException;
     PUT 修改
     DELETE 删除
     GET 获取
+
+    currentUser
  */
 
 @WebServlet("/api/employee")

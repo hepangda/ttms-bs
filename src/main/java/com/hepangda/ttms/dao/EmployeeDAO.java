@@ -1,6 +1,7 @@
 package com.hepangda.ttms.dao;
 
 import com.hepangda.ttms.annotation.QueryKey;
+import com.hepangda.ttms.idao.DAOFactory;
 import com.hepangda.ttms.idao.IEmployeeDAO;
 import com.hepangda.ttms.model.Employee;
 import com.hepangda.ttms.util.QueryResult;
@@ -45,7 +46,7 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
     }
 
     @Override
-    public int add(Employee emp) {
+    public  int add(Employee emp) {
         return normalInsert(emp, 102, 103);
     }
 
@@ -66,5 +67,21 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
     @Override
     public int update(Employee emp) {
         return normalUpdate(emp, 102, 106);
+    }
+
+    public static void main(String[] args) {
+        Employee test = new Employee();
+//        test.setName("afjkldsfjdk");
+//        test.setLoginName("ddddd");
+//        test.setPrivilege(2);
+//        test.setPassword("dsfsdf");
+//        test.setBornYear(1988);
+//        test.setPhoneNumber("1212121");
+        QueryResult<Employee> er = DAOFactory.createEmployeeDAO().query(test);
+        for (Employee ee: er.getResults()) {
+            System.out.println("Name=" + ee.getName() + ", Privilege=" + ee.getPrivilege());
+        }
+
+
     }
 }

@@ -1,4 +1,8 @@
 package com.hepangda.ttms.idao;
+
+import com.hepangda.ttms.model.Movie;
+import com.hepangda.ttms.util.QueryResult;
+
 /*
 Create Table: CREATE TABLE `Movie` (
   `Mov_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -13,6 +17,9 @@ Create Table: CREATE TABLE `Movie` (
 )
  */
 public interface IMovieDAO {
-//    int AddMovie(String name,int type,)
-
+    int add(Movie mov);
+    int delete(int id);
+    int delete(Movie mov);
+    int modify(Movie mov);
+    QueryResult<Movie> query(Movie mov);
 }

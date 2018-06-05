@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 class BaseDAO {
     private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "980217";
+    private static final String DB_PASSWORD = "173874";
     private static final String DB_CONNSTR = "jdbc:mysql://localhost:3306/ttms?serverTimezone=UTC";
 
     private Connection _Conn;
@@ -287,7 +287,7 @@ class BaseDAO {
         }
 
         StringBuilder baseString = new StringBuilder("Update " + qta.value() + " SET");
-        boolean first = true;
+        boolean first = true;//set一个元素
         try {
             Field[] fields = obj.getClass().getDeclaredFields();
             for (Field f: fields) {

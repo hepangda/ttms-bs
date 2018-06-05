@@ -10,11 +10,8 @@ public interface IEmployeeDAO {
 
     int add(String loginName, String name, String password, int bornYear, String phoneNumber, int privilege);
     int add(Employee emp);
-
     int delete(int id);
     int delete(Employee emp);
-
     QueryResult<Employee> query(Employee ek);
-
     int update(Employee emp);
 }

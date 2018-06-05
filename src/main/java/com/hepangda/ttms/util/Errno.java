@@ -14,6 +14,17 @@ public class Errno {
         put(105, "Delete employee success.");
         put(106, "Update employee success.");
         put(199, "Permission denied.");
+        put(300," Movie failed");
+        put(301,"Add Movie success");
+        put(302,"Delete Movie success");
+        put(303,"Modify Movie success");
+        put(304,"Query Movie success");
+        put(400," Schedule failed");
+        put(401,"Add Schedule success");
+        put(402,"Delete Schedule success");
+        put(403,"Modify Schedule success");
+        put(404,"Query Schedule success");
+
     }};
 
     public static String getMessage(int errno) {
