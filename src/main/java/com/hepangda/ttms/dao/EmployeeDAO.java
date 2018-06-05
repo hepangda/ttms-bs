@@ -60,7 +60,7 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
 
     @Override
     public int delete(Employee emp) {
-        return normalInsert(emp, 102, 105);
+        return normalDelete(emp, 102, 105);
     }
 
     @Override
