@@ -21,9 +21,9 @@ public class Errno {
         put(304,"Query Movie success");
         put(400," Schedule failed");
         put(401,"Add Schedule success");
-        put(402,"Delete Schedule success");
-        put(403,"Modify Schedule success");
-        put(404,"Query Schedule success");
+        put(402,"Modify Schedule success");
+        put(403,"Query Schedule success");
+        put(404,"Delete Schedule success");
 
     }};
 

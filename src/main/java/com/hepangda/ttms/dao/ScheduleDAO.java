@@ -26,8 +26,9 @@ public class ScheduleDAO extends BaseDAO implements IScheduleDAO {
 
     @Override
     public int delete(int id) {
-        return delete(new Schedule(id));
+        return delete(new Schedule());//new schedule(id)
     }
+
 
     @Override
     public int modify(Schedule sche) {

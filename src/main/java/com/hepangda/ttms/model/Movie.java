@@ -7,7 +7,7 @@ import com.hepangda.ttms.annotation.QueryTable;
 @QueryTable("Movie")
 public class Movie {
     @JSONField(name = "id")
-    @QueryKey(value = "Mov_ID", delete = true, insert = false)
+    @QueryKey(value = "Mov_ID", delete = true, insert = false, primaryKey = true)
     private int id;
 
     @JSONField(name = "name")

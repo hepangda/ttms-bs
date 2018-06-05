@@ -7,6 +7,7 @@ import com.hepangda.ttms.exception.FrameworkException;
 import com.hepangda.ttms.model.Employee;
 import com.hepangda.ttms.util.QueryResult;
 
+import java.awt.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.sql.*;
@@ -289,12 +290,12 @@ class BaseDAO {
         StringBuilder baseString = new StringBuilder("Update " + qta.value() + " SET");
         boolean first = true;//set一个元素
         try {
-            Field[] fields = obj.getClass().getDeclaredFields();
+            Field[] fields = obj.getClass().getDeclaredFields();//拿到所有的元素
             for (Field f: fields) {
-                f.setAccessible(true);
-                if (notZeroValue(f, obj)) {
-                    QueryKey qka = f.getAnnotation(QueryKey.class);
-                    if (qka == null || qka.primaryKey()) {
+                f.setAccessible(true);//因为全是private，所以设置为可访问
+                if (notZeroValue(f, obj)) {//判断域值非零值
+                    QueryKey qka = f.getAnnotation(QueryKey.class);//拿到标注
+                    if (qka == null || qka.primaryKey()) {//判断空或者主键就过
                         continue;
                     }
                     if (first) {
@@ -344,14 +345,14 @@ class BaseDAO {
         Field[] fields = tk.getClass().getDeclaredFields();
         for (Field f: fields) {
             f.setAccessible(true);
-            Object tko = f.get(tk);
+            Object tko = f.get(tk);//tk填的对象（movie等）
             QueryKey qka = f.getAnnotation(QueryKey.class);
             if (qka != null && notZeroValue(f, tk) && !qka.primaryKey()) {
                 stmt.setObject(i++, tko);
             }
         }
 
-        for (Field f: fields) {
+        for (Field f: fields) {//填主键部分
             f.setAccessible(true);
             Object tko = f.get(tk);
             if (notZeroValue(f, tk)) {
@@ -368,7 +369,6 @@ class BaseDAO {
         try {
             PreparedStatement stmt = getUpdateStatement(tk);
             stmt.executeUpdate();
-
             return successErrno;
         } catch (Exception ex) {
             ex.printStackTrace();
