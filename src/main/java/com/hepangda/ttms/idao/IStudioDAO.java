@@ -1,12 +1,14 @@
 package com.hepangda.ttms.idao;
 
 import com.hepangda.ttms.model.Studio;
+import com.hepangda.ttms.util.QueryResult;
 
 import java.util.ArrayList;
 
 public interface IStudioDAO {
-    int add(String name,int type,int row,int column);
-    int delete(String name);
-    int modify(String old_name,String new_name);
-    ArrayList<Studio> get(int begin, int end);
+    int add(Studio stu);
+    int delete(Studio stu);
+    int delete(int id);
+    int modify(Studio stu);
+    QueryResult<Studio> query(Studio stu);
 }

@@ -14,11 +14,19 @@ public class Errno {
         put(105, "Delete employee success.");
         put(106, "Update employee success.");
         put(199, "Permission denied.");
+
+        put(200, "studio false");
+        put(201, "add studio success.");
+        put(202, "delete studio success.");
+        put(203, "update studio success.");
+        put(204, "select studio success.");
+
         put(300," Movie failed");
         put(301,"Add Movie success");
         put(302,"Delete Movie success");
         put(303,"Modify Movie success");
         put(304,"Query Movie success");
+
         put(400," Schedule failed");
         put(401,"Add Schedule success");
         put(402,"Modify Schedule success");
@@ -31,3 +39,4 @@ public class Errno {
         return errnoMap.get(errno);
     }
 }
+

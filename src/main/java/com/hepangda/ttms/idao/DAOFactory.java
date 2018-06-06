@@ -12,15 +12,17 @@ public class DAOFactory {
         return new EmployeeDAO();
     }
 
-    public static IStudioDAO createStudioDAO() {
-//        return new StudioDAO();
-        return null;
-    }
     public static IMovieDAO createMovieDAO(){
         return new MovieDAO();
     }
 //    public static IScheduleDAO.java createScheduleDAO(){
 //        return new ScheduleDAO.java();
 //    }
+   public static IStudioDAO createStudioDAO() {
+    return new StudioDAO();
+}
 
 }
+
+
+
