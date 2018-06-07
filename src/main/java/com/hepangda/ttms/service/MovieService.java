@@ -10,10 +10,34 @@ import com.hepangda.ttms.util.QueryResult;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+/*
+@JSONField(name = "type")
+    private String type;
 
+    @JSONField(name = "movie")
+    private Movie movies;
+
+    @JSONField(name ="page")
+    private int page;
+
+    @JSONField(name="pageby")
+    private int pageby;
+ */
 public class MovieService {
     public static MovieResponse add(HttpSession session, MovieRequest uerq){
         IMovieDAO dao = DAOFactory.createMovieDAO();
+        Movie mov = uerq.getMovies();
+        if(mov.getName()==null)
+            return MovieResponse.createAddEditDelete(false, Errno.getMessage(300));
+        if(mov.getType()<1 &&mov.getType()>16)
+            return MovieResponse.createAddEditDelete(false, Errno.getMessage(300));
+        if(mov.getReligon()<1&&mov.getReligon()>11)
+            return MovieResponse.createAddEditDelete(false, Errno.getMessage(300));
+        if(mov.getDescription()==null)
+            return MovieResponse.createAddEditDelete(false, Errno.getMessage(300));
+        //分割时间
+        if(mov.getImage()==null)
+            return MovieResponse.createAddEditDelete(false, Errno.getMessage(300));
         int res = dao.add(uerq.getMovies());
         if (res == 301) {
             return MovieResponse.createAddEditDelete(true, Errno.getMessage(res));
@@ -21,13 +45,6 @@ public class MovieService {
 
         return MovieResponse.createAddEditDelete(false, Errno.getMessage(res));
     }
-/*
- put(300," Movie failed");
-        put(301,"Add Movie success");
-        put(302,"Delete Movie success");
-        put(303,"Modify Movie success");
-        put(304,"Query Movie success");
- */
 
     public static MovieResponse edit(HttpSession session,MovieRequest uerq){
         IMovieDAO dao = DAOFactory.createMovieDAO();

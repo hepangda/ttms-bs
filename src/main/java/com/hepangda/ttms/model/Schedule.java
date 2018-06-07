@@ -16,67 +16,73 @@ import com.hepangda.ttms.annotation.QueryTable;
  */
 @QueryTable("Schedule")
 public class Schedule {
-//    @JSONField(name = "")
-//    @QueryKey("Sch_ID")
-//    private int ID;
-//
-//    @JSONField(name="")
-//    @QueryKey("Sch_Time")
-//    private String time;
-//
-//    @JSONField(name = "")
-//    @QueryKey("Sch_MovieID")
-//    private int movID;
-//
-//    @JSONField(name = "")
-//    @QueryKey("Sche_StudioID")
-//    private int stuID;
-//
-//    @JSONField(name = "")
-//    @QueryKey("Sch_Price");
-//    private int price;
-//
-//    public Schedule(int id) {
-//
-//    }
-//
-//    public int getID() {
-//        return ID;
-//    }
-//
-//    public void setID(int ID) {
-//        this.ID = ID;
-//    }
-//
-//    public String getTime() {
-//        return time;
-//    }
-//
-//    public void setTime(String time) {
-//        this.time = time;
-//    }
-//
-//    public int getMovID() {
-//        return movID;
-//    }
-//
-//    public void setMovID(int movID) {
-//        this.movID = movID;
-//    }
-//
-//    public int getStuID() {
-//        return stuID;
-//    }
-//
-//    public void setStuID(int stuID) {
-//        this.stuID = stuID;
-//    }
-//
-//    public int getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(int price) {
-//        this.price = price;
-//    }
+    @JSONField(name = "id")
+    @QueryKey(value = "Sch_ID",delete = true,primaryKey = true,insert = false)
+    private int ID;
+
+    @JSONField(name="time")
+    @QueryKey("Sch_Time")
+    private String time;
+
+    @JSONField(name = "timeEnd")
+    private String timeEnd;
+
+    @JSONField(name = "movid")
+    @QueryKey("Sch_MovID")
+    private int movID;
+
+    @JSONField(name = "stuid")
+    @QueryKey("Sch_StuID")
+    private int stuID;
+
+    @JSONField(name = "price")
+    @QueryKey("Sch_Price")
+    private int price;
+
+    public Schedule(int id) {
+
+    }
+
+    public Schedule() {
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getMovID() {
+        return movID;
+    }
+
+    public void setMovID(int movID) {
+        this.movID = movID;
+    }
+
+    public int getStuID() {
+        return stuID;
+    }
+
+    public void setStuID(int stuID) {
+        this.stuID = stuID;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 }

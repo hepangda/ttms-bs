@@ -45,12 +45,13 @@ public class MovieDAO extends BaseDAO implements IMovieDAO {
 //    public static void main(String[] args) {
 //        Movie test = new Movie();
 //        test.setName("fdsafasd");
+//        test.setId(1);
 //        test.setType(2);;
 //        test.setStatus(2);
 //        test.setReligon(4);
 //        test.setDescription("fawdfasdfdas");
 //        test.setTime("12:08:0");
 //        test.setImage("fasdfes");
-//        DAOFactory.createMovieDAO().add(test);
+//        DAOFactory.createMovieDAO().delete(test);
 //    }
 }
