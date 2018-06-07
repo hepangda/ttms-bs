@@ -31,6 +31,15 @@ public class Studio {
     @QueryKey(value = "Stu_cols")
     private int column;
 
+    public Studio(int id, String name, String description, int type, int row, int column) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.row = row;
+        this.column = column;
+    }
+
     public Studio() {
     }
     public Studio(int id) {

@@ -69,19 +69,4 @@ public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
         return normalUpdate(emp, 102, 106);
     }
 
-    public static void main(String[] args) {
-        Employee test = new Employee();
-//        test.setName("afjkldsfjdk");
-//        test.setLoginName("ddddd");
-//        test.setPrivilege(2);
-//        test.setPassword("dsfsdf");
-//        test.setBornYear(1988);
-//        test.setPhoneNumber("1212121");
-        QueryResult<Employee> er = DAOFactory.createEmployeeDAO().query(test);
-        for (Employee ee: er.getResults()) {
-            System.out.println("Name=" + ee.getName() + ", Privilege=" + ee.getPrivilege());
-        }
-
-
-    }
 }

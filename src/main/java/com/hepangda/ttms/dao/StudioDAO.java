@@ -1,12 +1,10 @@
 package com.hepangda.ttms.dao;
 
-import com.hepangda.ttms.idao.DAOFactory;
 import com.hepangda.ttms.idao.IStudioDAO;
 import com.hepangda.ttms.model.Studio;
 import com.hepangda.ttms.util.QueryResult;
 
 public class StudioDAO extends BaseDAO implements IStudioDAO {
-
     @Override
     public int add(Studio stu) {
         return normalInsert(stu , 200 , 201);
@@ -18,7 +16,6 @@ public class StudioDAO extends BaseDAO implements IStudioDAO {
     }
 
     public int delete(Studio stu) {
-        System.out.println(stu.getId());
         return normalDelete(stu , 200 , 202);
     }
 

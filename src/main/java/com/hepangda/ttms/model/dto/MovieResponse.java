@@ -2,7 +2,6 @@ package com.hepangda.ttms.model.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.hepangda.ttms.model.Movie;
-import com.hepangda.ttms.model.Schedule;
 
 import java.util.ArrayList;
 

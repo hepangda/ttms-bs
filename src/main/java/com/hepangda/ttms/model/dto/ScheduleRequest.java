@@ -2,7 +2,7 @@ package com.hepangda.ttms.model.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.hepangda.ttms.model.Schedule;
-import com.hepangda.ttms.model.Studio;
+
 public class ScheduleRequest {
     @JSONField(name  = "type")
     private String type;

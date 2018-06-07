@@ -1,17 +1,19 @@
 package com.hepangda.ttms.model.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.hepangda.ttms.model.Movie;
+import com.hepangda.ttms.model.Ticket;
 
-public class MovieRequest {
+public class TicketRequest {
     @JSONField(name = "type")
     private String type;
-    @JSONField(name = "movie")
-    private Movie movies;
-    @JSONField(name ="page")
+    @JSONField(name="ticket")
+    private Ticket tickets;
+    @JSONField(name = "page")
     private int page;
-    @JSONField(name="pageby")
+    @JSONField(name = "pageby")
     private int pageby;
+    @JSONField(name = "status")
+    private int status;
 
     public String getType() {
         return type;
@@ -21,12 +23,12 @@ public class MovieRequest {
         this.type = type;
     }
 
-    public Movie getMovies() {
-        return movies;
+    public Ticket getTickets() {
+        return tickets;
     }
 
-    public void setMovies(Movie movies) {
-        this.movies = movies;
+    public void setTickets(Ticket tickets) {
+        this.tickets = tickets;
     }
 
     public int getPage() {
@@ -43,5 +45,13 @@ public class MovieRequest {
 
     public void setPageby(int pageby) {
         this.pageby = pageby;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

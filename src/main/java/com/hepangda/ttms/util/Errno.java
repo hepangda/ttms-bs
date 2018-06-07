@@ -34,6 +34,19 @@ public class Errno {
         put(404,"Query Schedule success");
 
 
+
+
+
+
+
+
+        put(700, "Food failed");
+        put(701, "Add Food success");
+        put(702, "Modify Food success");
+        put(703, "Query Food Success");
+        put(704, "Delete Food Success");
+
+
     }};
 
     public static String getMessage(int errno) {
