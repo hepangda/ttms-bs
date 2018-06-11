@@ -4,24 +4,21 @@ import com.hepangda.ttms.annotation.QueryKey;
 import com.hepangda.ttms.annotation.QueryTable;
 import com.hepangda.ttms.exception.DangerSQLException;
 import com.hepangda.ttms.exception.FrameworkException;
-import com.hepangda.ttms.model.Employee;
 import com.hepangda.ttms.util.QueryResult;
 
-import java.awt.*;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 
 class BaseDAO {
     private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "173874";
-    private static final String DB_CONNSTR = "jdbc:mysql://localhost:3306/ttms?serverTimezone=UTC";
+    private static final String DB_PASSWORD = "980217";
+    private static final String DB_CONNSTR = "jdbc:mysql://192.168.200.3:3306/ttms?serverTimezone=UTC&useSSL=false";
 
     private Connection _Conn;
     BaseDAO() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             _Conn = DriverManager.getConnection(DB_CONNSTR, DB_USERNAME, DB_PASSWORD);
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -106,6 +103,21 @@ class BaseDAO {
         }
 
         return stmt;
+    }
+
+    <T> int countTable(T tk) throws SQLException {
+        QueryTable qta = tk.getClass().getAnnotation(QueryTable.class);
+        if (qta == null) {
+            throw new FrameworkException();
+        }
+
+        PreparedStatement stmt = getStatement(
+                "SELECT COUNT(*) FROM " + qta.value() + ";"
+        );
+
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        return rs.getInt(1);
     }
 
     <T> QueryResult<T> normalSelect(T tk, int failedErrno, int successErrno) {

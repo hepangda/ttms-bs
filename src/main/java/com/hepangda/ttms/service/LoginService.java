@@ -1,24 +1,27 @@
 package com.hepangda.ttms.service;
 
+import com.alibaba.fastjson.JSON;
 import com.hepangda.ttms.idao.DAOFactory;
 import com.hepangda.ttms.idao.IEmployeeDAO;
 import com.hepangda.ttms.model.Employee;
 import com.hepangda.ttms.model.dto.LoginRequest;
 import com.hepangda.ttms.model.dto.LoginResponse;
 import com.hepangda.ttms.util.Errno;
+import com.hepangda.ttms.util.QueryResult;
 
 import javax.servlet.http.HttpSession;
 
 public class LoginService {
     public static LoginResponse login(HttpSession session, LoginRequest ureq) {
         IEmployeeDAO dao = DAOFactory.createEmployeeDAO();
-        int res = dao.verifyLoginInfo(ureq.getUsername(), ureq.getPassword());
+        QueryResult<Employee> res = dao.verifyLoginInfo(ureq.getUsername(), ureq.getPassword());
 
-        if (res == 101) {
-            return LoginResponse.createLoginLogout(true, Errno.getMessage(res));
+        if (res.getRetno() == 101) {
+            session.setAttribute("currentUser", res.getResults().get(0));
+            return LoginResponse.createLoginLogout(true, Errno.getMessage(res.getRetno()));
         }
 
-        return LoginResponse.createLoginLogout(false, Errno.getMessage(res));
+        return LoginResponse.createLoginLogout(false, Errno.getMessage(res.getRetno()));
     }
 
     public static LoginResponse logout(HttpSession session, LoginRequest ureq) {

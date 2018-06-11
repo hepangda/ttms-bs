@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLDecoder;
 
 public class ExtendedServlet extends HttpServlet {
     protected enum RequestType {
@@ -20,7 +21,7 @@ public class ExtendedServlet extends HttpServlet {
         try {
             switch (rt) {
                 case GET:
-                    return JSON.parseObject(req.getParameter(GET_JSON_NAME), cls);
+                    return JSON.parseObject(URLDecoder.decode(req.getParameter(GET_JSON_NAME), "UTF-8"), cls);
                 case POST: case PUT: case DELETE:
                     return JSON.parseObject(Utils.read(new InputStreamReader(req.getInputStream())), cls);
             }

@@ -27,17 +27,18 @@ CREATE VIEW User AS
 */
 
 public class EmployeeDAO extends BaseDAO implements IEmployeeDAO {
-    public int verifyLoginInfo(String username, String password) {
+    public QueryResult<Employee> verifyLoginInfo(String username, String password) {
         QueryResult<Employee> qr = query(
                 new Employee(0, username, password, null, 0, null, 0)
         );
 
-        if (qr.getRetno() == 102) {
-            return 102;
-        } else if (qr.getResults().size() == 1) {
-            return 101;
+        if (qr.getResults().size() == 1) {
+            qr.setRetno(101);
+        } else if (qr.getRetno() != 102) {
+            qr.setRetno(100);
         }
-        return 100;
+
+        return qr;
     }
 
     @Override

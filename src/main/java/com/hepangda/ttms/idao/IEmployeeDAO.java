@@ -6,7 +6,7 @@ import com.hepangda.ttms.util.QueryResult;
 import java.util.ArrayList;
 
 public interface IEmployeeDAO {
-    int verifyLoginInfo(String username, String password);
+    QueryResult<Employee> verifyLoginInfo(String username, String password);
 
     int add(String loginName, String name, String password, int bornYear, String phoneNumber, int privilege);
     int add(Employee emp);

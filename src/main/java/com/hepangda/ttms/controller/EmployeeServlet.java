@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /*
     POST 添加
@@ -39,6 +40,16 @@ public class EmployeeServlet extends ExtendedServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         EmployeeRequest ureq = getUR(req, RequestType.GET);
+        Map<String, String[]> m = req.getParameterMap();
+
+        m.forEach((String k, String v[]) -> {
+            System.out.print(k + ":");
+            for (String s: v) {
+                System.out.print(" " + s);
+            }
+            System.out.println();
+        });
+
         EmployeeResponse ures = EmployeeService.fetch(req.getSession(), ureq);
         resp.getWriter().println(JSON.toJSONString(ures));
     }
@@ -55,5 +66,10 @@ public class EmployeeServlet extends ExtendedServlet {
         EmployeeRequest ureq = getUR(req, RequestType.PUT);
         EmployeeResponse ures = EmployeeService.modify(req.getSession(), ureq);
         resp.getWriter().println(JSON.toJSONString(ures));
+    }
+
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doOptions(req, resp);
     }
 }

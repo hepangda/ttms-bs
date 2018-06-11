@@ -2,6 +2,7 @@ package com.hepangda.ttms.util;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 public class Utils {
     private static final int BUFFER_SIZE = 1024 * 8;
@@ -26,4 +27,14 @@ public class Utils {
         return total;
     }
 
+    public static <T> ArrayList<T> slice(ArrayList<T> ar, int page, int pageby) {
+        ArrayList<T> ret = new ArrayList<>();
+
+        int skip = (page - 1) * pageby;
+        for (int i = 0; i < pageby && skip + i < ar.size(); i++) {
+            ret.add(ar.get(skip + i));
+        }
+
+        return ret;
+    }
 }
