@@ -29,7 +29,7 @@ public class Movie {
 
     @ValidateKey(maxRange = 9, errno = 311)
     @JSONField(name = "religon")
-    @QueryKey("Mov_Description")
+    @QueryKey("Mov_Religon")
     private int religon;
 
     @ValidateKey(maxLen = 150, errno = 312)

@@ -1,15 +1,20 @@
 package com.hepangda.ttms.model.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.hepangda.ttms.annotation.ValidateKey;
 import com.hepangda.ttms.model.Movie;
 
 public class MovieRequest {
+    @ValidateKey(enums = {"Add", "Edit", "Fetch", "Delete"}, errno = 312)
     @JSONField(name = "type")
     private String type;
+
     @JSONField(name = "movie")
     private Movie movies;
+
     @JSONField(name = "page")
     private int page;
+
     @JSONField(name = "pageby")
     private int pageby;
 
