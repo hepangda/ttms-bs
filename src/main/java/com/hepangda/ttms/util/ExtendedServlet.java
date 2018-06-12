@@ -47,6 +47,7 @@ public class ExtendedServlet extends HttpServlet {
                 case DELETE:
                     ori = JSON.parseObject(Utils.read(new InputStreamReader(req.getInputStream())), cls);
             }
+            System.out.println(JSON.toJSONString(ori));
             decodeObject(ori);
         } catch (Exception ex) {
             ex.printStackTrace();

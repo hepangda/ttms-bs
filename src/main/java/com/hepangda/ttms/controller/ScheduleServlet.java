@@ -1,9 +1,7 @@
 package com.hepangda.ttms.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hepangda.ttms.model.dto.MovieRequest;
-import com.hepangda.ttms.model.dto.ScheduleRequest;
-import com.hepangda.ttms.model.dto.ScheduleResponse;
+import com.hepangda.ttms.model.dto.*;
 import com.hepangda.ttms.service.ScheduleService;
 import com.hepangda.ttms.util.ExtendedServlet;
 
@@ -38,8 +36,8 @@ public class ScheduleServlet extends ExtendedServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServerException, IOException {
-        ScheduleRequest ureq = getUR(req, RequestType.GET);
-        ScheduleResponse ures = ScheduleService.fetch(req.getSession(), ureq);
+        ScheduleFetchRequest ureq = super.getUR(req, RequestType.GET, ScheduleFetchRequest.class);
+        ScheduleFetchResponse ures = ScheduleService.fetch(req.getSession(), ureq);
         resp.getWriter().println(JSON.toJSONString(ures));
 
     }

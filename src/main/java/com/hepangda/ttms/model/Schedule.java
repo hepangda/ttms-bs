@@ -17,13 +17,13 @@ public class Schedule {
     @JSONField(name = "timeEnd")
     private String timeEnd;
 
-    @JSONField(name = "movid")
-    @QueryKey("Sch_MovID")
-    private int movID;
-
     @JSONField(name = "stuid")
     @QueryKey("Sch_StuID")
     private int stuID;
+
+    @JSONField(name = "movid")
+    @QueryKey("Sch_MovID")
+    private int movID;
 
     @JSONField(name = "price")
     @QueryKey("Sch_Price")

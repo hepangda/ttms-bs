@@ -86,14 +86,7 @@ public class MovieService {
 
     public static MovieResponse fetch(HttpSession session, MovieRequest ureq) {
         IMovieDAO dao = DAOFactory.createMovieDAO();
-        int err = verify(ureq);
-        QueryResult<Movie> mo = null;
-        if (err != 0) {
-            return MovieResponse.createFetch(false, Errno.getMessage(err),
-                    mo.getResults(), ureq);
-        }
         QueryResult<Movie> qr = dao.query(ureq.getMovies());
-        Movie temp = qr.getResults().get(0);
         return MovieResponse.createFetch(qr.getRetno() == 304, Errno.getMessage(qr.getRetno()), qr.getResults(), ureq);
     }
 

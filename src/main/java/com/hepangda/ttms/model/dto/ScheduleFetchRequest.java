@@ -1,16 +1,16 @@
 package com.hepangda.ttms.model.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.hepangda.ttms.model.Schedule;
+import com.hepangda.ttms.model.ScheduleFetch;
 
-public class ScheduleRequest {
-    @JSONField(name = "type")
+public class ScheduleFetchRequest {
+    @JSONField(name="type")
     private String type;
 
-    @JSONField(name = "schedule")
-    private Schedule schedule;
+    @JSONField(name="schedule")
+    private ScheduleFetch schedule;
 
-    @JSONField(name = "page")
+    @JSONField(name ="page")
     private int page;
 
     @JSONField(name = "pageby")
@@ -24,11 +24,11 @@ public class ScheduleRequest {
         this.type = type;
     }
 
-    public Schedule getSchedule() {
+    public ScheduleFetch getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(Schedule schedule) {
+    public void setSchedule(ScheduleFetch schedule) {
         this.schedule = schedule;
     }
 
@@ -48,4 +48,3 @@ public class ScheduleRequest {
         this.pageby = pageby;
     }
 }
-

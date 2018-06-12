@@ -37,6 +37,10 @@ public class DAOFactory {
     public static ISaleFoodsDAO createSaleFoodsDAO() {
         return new SaleFoodsDAO();
     }
+
+    public static IScheduleFetchDAO createScheduleFetchDAO() {
+        return new ScheduleFetchDAO();
+    }
 }
 
 

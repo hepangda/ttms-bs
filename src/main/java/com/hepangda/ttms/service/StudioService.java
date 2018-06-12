@@ -24,7 +24,6 @@ public class StudioService {
     public static StudioResponse delete(HttpSession session, StudioRequest ureq) {
         IStudioDAO dao = DAOFactory.createStudioDAO();
         int res = dao.delete(ureq.getStudio());
-        System.out.println("\n" + "res::::::" + res + "\n");
         if (res == 202) {
             return StudioResponse.createAddEditDelete(true, Errno.getMessage(res));
         }
