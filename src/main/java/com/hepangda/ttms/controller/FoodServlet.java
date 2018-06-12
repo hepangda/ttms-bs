@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/api/foods")
-public class FoodServlet extends ExtendedServlet{
+public class FoodServlet extends ExtendedServlet {
     private FoodRequest getUR(HttpServletRequest req, ExtendedServlet.RequestType type) {
         return super.getUR(req, type, FoodRequest.class);
     }

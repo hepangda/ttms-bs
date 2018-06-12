@@ -8,9 +8,9 @@ public class MovieRequest {
     private String type;
     @JSONField(name = "movie")
     private Movie movies;
-    @JSONField(name ="page")
+    @JSONField(name = "page")
     private int page;
-    @JSONField(name="pageby")
+    @JSONField(name = "pageby")
     private int pageby;
 
     public String getType() {

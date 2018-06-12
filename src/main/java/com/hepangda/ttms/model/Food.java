@@ -30,9 +30,18 @@ public class Food {
     public Food() {
     }
 
-    public Food(int id ) {
+    public Food(int id, String name, int amount, int price, String imageurl) {
+        this.id = id;
+        this.name = name;
+        this.amount = amount;
+        this.price = price;
+        this.imageurl = imageurl;
+    }
+
+    public Food(int id) {
         this.id = id;
     }
+
     public int getId() {
         return id;
     }

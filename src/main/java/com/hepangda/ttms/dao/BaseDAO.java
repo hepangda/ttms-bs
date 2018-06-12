@@ -16,6 +16,7 @@ class BaseDAO {
     private static final String DB_CONNSTR = "jdbc:mysql://192.168.200.3:3306/ttms?serverTimezone=UTC&useSSL=false";
 
     private Connection _Conn;
+
     BaseDAO() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -50,7 +51,7 @@ class BaseDAO {
         boolean first = true;
         try {
             Field[] fields = obj.getClass().getDeclaredFields();
-            for (Field f: fields) {
+            for (Field f : fields) {
                 f.setAccessible(true);
                 if (notZeroValue(f, obj)) {
                     QueryKey qka = f.getAnnotation(QueryKey.class);
@@ -89,7 +90,7 @@ class BaseDAO {
         int i = 1;
 
         Field[] fields = tk.getClass().getDeclaredFields();
-        for (Field f: fields) {
+        for (Field f : fields) {
             f.setAccessible(true);
             Object tko = f.get(tk);
             QueryKey qka = f.getAnnotation(QueryKey.class);
@@ -101,7 +102,6 @@ class BaseDAO {
                 }
             }
         }
-
         return stmt;
     }
 
@@ -111,9 +111,7 @@ class BaseDAO {
             throw new FrameworkException();
         }
 
-        PreparedStatement stmt = getStatement(
-                "SELECT COUNT(*) FROM " + qta.value() + ";"
-        );
+        PreparedStatement stmt = getStatement("SELECT COUNT(*) FROM " + qta.value() + ";");
 
         ResultSet rs = stmt.executeQuery();
         rs.next();
@@ -131,15 +129,17 @@ class BaseDAO {
             while (rs.next()) {
                 T newone = (T) tk.getClass().getConstructor().newInstance();
 
-                for (Field f: fields) {
+                for (Field f : fields) {
                     QueryKey qka = f.getAnnotation(QueryKey.class);
                     if (qka != null) {
                         f.setAccessible(true);
                         switch (f.getType().getName()) {
-                            case "java.lang.Integer": case "int":
+                            case "java.lang.Integer":
+                            case "int":
                                 f.setInt(newone, rs.getInt(qka.value()));
                                 break;
-                            case "java.lang.Double": case "double":
+                            case "java.lang.Double":
+                            case "double":
                                 f.setDouble(newone, rs.getDouble(qka.value()));
                                 break;
                             case "java.lang.String":
@@ -172,7 +172,7 @@ class BaseDAO {
 
         try {
             Field[] fields = obj.getClass().getDeclaredFields();
-            for (Field f: fields) {
+            for (Field f : fields) {
                 f.setAccessible(true);
                 QueryKey qka = f.getAnnotation(QueryKey.class);
                 if (qka == null || !qka.insert()) {
@@ -199,7 +199,7 @@ class BaseDAO {
         int i = 1;
 
         Field[] fields = obj.getClass().getDeclaredFields();
-        for (Field f: fields) {
+        for (Field f : fields) {
             f.setAccessible(true);
             Object tko = f.get(obj);
             QueryKey qka = f.getAnnotation(QueryKey.class);
@@ -233,7 +233,7 @@ class BaseDAO {
         boolean first = true;
         try {
             Field[] fields = obj.getClass().getDeclaredFields();
-            for (Field f: fields) {
+            for (Field f : fields) {
                 f.setAccessible(true);
                 if (notZeroValue(f, obj)) {
                     QueryKey qka = f.getAnnotation(QueryKey.class);
@@ -245,7 +245,6 @@ class BaseDAO {
                         first = false;
                     } else {
                         baseString.append(" AND ");
-
                     }
 
                     baseString.append(qka.value());
@@ -255,9 +254,8 @@ class BaseDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         if (baseString.toString().endsWith("WHERE")) {
-            throw new DangerSQLException();
+            throw new DangerSQLException(baseString.toString());
         }
 
         baseString.append(';');
@@ -269,7 +267,7 @@ class BaseDAO {
         int i = 1;
 
         Field[] fields = tk.getClass().getDeclaredFields();
-        for (Field f: fields) {
+        for (Field f : fields) {
             f.setAccessible(true);
             Object tko = f.get(tk);
             QueryKey qka = f.getAnnotation(QueryKey.class);
@@ -303,7 +301,7 @@ class BaseDAO {
         boolean first = true;//set一个元素
         try {
             Field[] fields = obj.getClass().getDeclaredFields();//拿到所有的元素
-            for (Field f: fields) {
+            for (Field f : fields) {
                 f.setAccessible(true);//因为全是private，所以设置为可访问
                 if (notZeroValue(f, obj)) {//判断域值非零值
                     QueryKey qka = f.getAnnotation(QueryKey.class);//拿到标注
@@ -315,15 +313,19 @@ class BaseDAO {
                         first = false;
                     } else {
                         baseString.append(",");
-
                     }
                     baseString.append(qka.value());
-                    baseString.append("=?");
+                    if (qka.specialInsert()) {
+                        baseString.append('=');
+                        baseString.append(qka.insertString());
+                    } else {
+                        baseString.append("=?");
+                    }
                 }
             }
 
             first = true;
-            for (Field f: fields) {
+            for (Field f : fields) {
                 f.setAccessible(true);
                 if (notZeroValue(f, obj)) {
                     first = false;
@@ -338,7 +340,7 @@ class BaseDAO {
             }
 
             if (first)
-                throw new DangerSQLException();
+                throw new DangerSQLException(baseString.toString());
         } catch (IllegalAccessException ex) {
             ex.printStackTrace();
         }
@@ -355,7 +357,7 @@ class BaseDAO {
         int i = 1;
 
         Field[] fields = tk.getClass().getDeclaredFields();
-        for (Field f: fields) {
+        for (Field f : fields) {
             f.setAccessible(true);
             Object tko = f.get(tk);//tk填的对象（movie等）
             QueryKey qka = f.getAnnotation(QueryKey.class);
@@ -364,7 +366,7 @@ class BaseDAO {
             }
         }
 
-        for (Field f: fields) {//填主键部分
+        for (Field f : fields) {//填主键部分
             f.setAccessible(true);
             Object tko = f.get(tk);
             if (notZeroValue(f, tk)) {

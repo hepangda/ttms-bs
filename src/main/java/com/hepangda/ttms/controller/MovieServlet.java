@@ -17,9 +17,11 @@ public class MovieServlet extends ExtendedServlet {
     private MovieRequest getUR(HttpServletRequest req, RequestType type) {
         return super.getUR(req, type, MovieRequest.class);
     }
+
     @Override//add
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         MovieRequest ureq = getUR(req, RequestType.POST);
+        System.out.println(JSON.toJSONString(ureq));
         MovieResponse ures = MovieService.add(req.getSession(), ureq);
         resp.getWriter().println(JSON.toJSONString(ures));
     }
@@ -35,6 +37,7 @@ public class MovieServlet extends ExtendedServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         MovieRequest ureq = getUR(req, RequestType.GET);
         MovieResponse ures = MovieService.fetch(req.getSession(), ureq);
+        System.out.println(JSON.toJSONString(ures));
         resp.getWriter().println(JSON.toJSONString(ures));
     }
 

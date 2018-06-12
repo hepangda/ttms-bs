@@ -1,26 +1,16 @@
 package com.hepangda.ttms.model;
 
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.hepangda.ttms.annotation.QueryKey;
 import com.hepangda.ttms.annotation.QueryTable;
 
-/*
-表名：Schedule
-    Sch_ID SERIAL PRIMARY KEY,
-    Sch_Time DATETIME NOT NULL,
-    Sch_MovieID BIGINT UNSIGNED NOT NULL FK Movie(Mov_ID),
-    Sch_StudioID BIGINT UNSIGNED NOT NULL FK Studio(Stu_ID),
-    Sch_Price BIGINT NOT NULL
-    UNIQUE KEY(Sch_Time, Sch_MovieID, Sch_StudioID)
- */
 @QueryTable("Schedule")
 public class Schedule {
     @JSONField(name = "id")
-    @QueryKey(value = "Sch_ID",delete = true,primaryKey = true,insert = false)
+    @QueryKey(value = "Sch_ID", delete = true, primaryKey = true, insert = false)
     private int ID;
 
-    @JSONField(name="time")
+    @JSONField(name = "time")
     @QueryKey("Sch_Time")
     private String time;
 

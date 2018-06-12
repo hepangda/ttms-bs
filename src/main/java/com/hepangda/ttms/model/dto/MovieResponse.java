@@ -6,7 +6,7 @@ import com.hepangda.ttms.model.Movie;
 import java.util.ArrayList;
 
 public class MovieResponse {
-    @JSONField(name="ok")
+    @JSONField(name = "ok")
     private boolean ok;
 
     @JSONField(name = "message")
@@ -25,10 +25,12 @@ public class MovieResponse {
         this.messqge = messqge;
         this.movies = movies;
     }
-    public static MovieResponse createAddEditDelete(boolean ok,String messqge){
-        return new MovieResponse(ok,messqge);
+
+    public static MovieResponse createAddEditDelete(boolean ok, String messqge) {
+        return new MovieResponse(ok, messqge);
     }
-    public static MovieResponse createFetch(boolean ok, String message,ArrayList<Movie> movies) {
+
+    public static MovieResponse createFetch(boolean ok, String message, ArrayList<Movie> movies) {
         return new MovieResponse(ok, message, movies);
     }
 

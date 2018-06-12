@@ -3,13 +3,14 @@ package com.hepangda.ttms.model.dto;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.hepangda.ttms.model.Schedule;
 import com.hepangda.ttms.model.Studio;
+
 import java.util.ArrayList;
 
 public class ScheduleResponse {
     @JSONField(name = "ok")
     boolean ok;
 
-    @JSONField(name ="message")
+    @JSONField(name = "message")
     String message;
 
     @JSONField(name = "studios")
@@ -49,11 +50,13 @@ public class ScheduleResponse {
     public void setStudios(ArrayList<Schedule> studios) {
         this.studios = studios;
     }
-    public static ScheduleResponse createAddEditDelete(boolean ok,String message){
-        return new ScheduleResponse(ok,message);
+
+    public static ScheduleResponse createAddEditDelete(boolean ok, String message) {
+        return new ScheduleResponse(ok, message);
     }
-    public static ScheduleResponse createFetch(boolean ok,String message,ArrayList<Schedule> studios){
-        return new ScheduleResponse(ok,message,studios);
+
+    public static ScheduleResponse createFetch(boolean ok, String message, ArrayList<Schedule> studios) {
+        return new ScheduleResponse(ok, message, studios);
     }
 
 }

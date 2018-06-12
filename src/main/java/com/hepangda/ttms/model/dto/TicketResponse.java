@@ -1,11 +1,12 @@
 package com.hepangda.ttms.model.dto;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.hepangda.ttms.model.Ticket;
 
 import java.util.ArrayList;
 
 public class TicketResponse {
-    @JSONField(name="ok")
+    @JSONField(name = "ok")
     private boolean ok;
 
     @JSONField(name = "message")
@@ -24,11 +25,15 @@ public class TicketResponse {
         this.ok = ok;
         this.messqge = messqge;
     }
-    public static TicketResponse createAddEditDelete(boolean ok,String messqge){return new TicketResponse(ok,messqge);}
 
-    public static TicketResponse createFetch(boolean ok,String messqge,ArrayList<Ticket> tickets){
-        return new TicketResponse(ok,messqge,tickets);
+    public static TicketResponse createAddEditDelete(boolean ok, String messqge) {
+        return new TicketResponse(ok, messqge);
     }
+
+    public static TicketResponse createFetch(boolean ok, String messqge, ArrayList<Ticket> tickets) {
+        return new TicketResponse(ok, messqge, tickets);
+    }
+
     public boolean isOk() {
         return ok;
     }

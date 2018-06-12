@@ -1,5 +1,6 @@
 package com.hepangda.ttms.model;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.hepangda.ttms.annotation.QueryKey;
 import com.hepangda.ttms.annotation.QueryTable;
@@ -34,7 +35,8 @@ public class Employee {
     @QueryKey("Emp_Privilege")
     private int privilege;
 
-    public Employee() {}
+    public Employee() {
+    }
 
     public Employee(int id) {
         this.id = id;

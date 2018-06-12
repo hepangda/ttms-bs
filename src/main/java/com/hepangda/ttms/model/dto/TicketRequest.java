@@ -6,7 +6,7 @@ import com.hepangda.ttms.model.Ticket;
 public class TicketRequest {
     @JSONField(name = "type")
     private String type;
-    @JSONField(name="ticket")
+    @JSONField(name = "ticket")
     private Ticket tickets;
     @JSONField(name = "page")
     private int page;

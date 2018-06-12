@@ -4,7 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.hepangda.ttms.model.Schedule;
 
 public class ScheduleRequest {
-    @JSONField(name  = "type")
+    @JSONField(name = "type")
     private String type;
 
     @JSONField(name = "studio")

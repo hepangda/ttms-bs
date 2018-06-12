@@ -1,19 +1,20 @@
 package com.hepangda.ttms.model;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.hepangda.ttms.annotation.QueryKey;
 import com.hepangda.ttms.annotation.QueryTable;
 
 import java.util.*;
+
 @QueryTable("Studio")
 public class Studio {
-
     @JSONField(name = "id")
     @QueryKey(value = "Stu_ID", insert = false, delete = true, primaryKey = true)
     private int id;
 
     @JSONField(name = "name")
     @QueryKey(value = "Stu_Name")
-    private  String name;
+    private String name;
 
     @JSONField(name = "description")
     @QueryKey(value = "Stu_Description")
@@ -42,6 +43,7 @@ public class Studio {
 
     public Studio() {
     }
+
     public Studio(int id) {
         this.id = id;
     }

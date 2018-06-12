@@ -7,7 +7,7 @@ import com.hepangda.ttms.annotation.QueryTable;
 @QueryTable("tickets")
 public class Ticket {
     @JSONField(name = "uid")
-    @QueryKey(value = "TK_ID",insert = false, delete = true, primaryKey = true)
+    @QueryKey(value = "TK_ID", insert = false, delete = true, primaryKey = true)
     private int id;
 
     @JSONField(name = "uschid")
@@ -20,7 +20,7 @@ public class Ticket {
 
     @JSONField(name = "status")
     @QueryKey(value = "TK_Status")
-    private int  status;
+    private int status;
 
     public Ticket(int id) {
         this.id = id;
@@ -32,7 +32,8 @@ public class Ticket {
         this.status = status;
     }
 
-    public Ticket(){}
+    public Ticket() {
+    }
 
     public int getId() {
         return id;

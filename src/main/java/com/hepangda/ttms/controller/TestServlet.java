@@ -17,7 +17,7 @@ public class TestServlet extends ExtendedServlet {
         Map<String, String[]> a = req.getParameterMap();
         for (String p : a.keySet()) {
             System.out.println(p);
-            for (String v: a.get(p)) {
+            for (String v : a.get(p)) {
                 System.out.println(v);
             }
         }

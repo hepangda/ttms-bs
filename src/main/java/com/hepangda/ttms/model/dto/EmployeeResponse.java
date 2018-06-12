@@ -74,7 +74,9 @@ public class EmployeeResponse {
     }
 
     public static EmployeeResponse createGet(boolean ok, String message, Employee employee, EmployeeRequest req) {
-        return createGet(ok, message, new ArrayList<Employee>(){{ add(employee); }}, req);
+        return createGet(ok, message, new ArrayList<Employee>() {{
+            add(employee);
+        }}, req);
     }
 
     public boolean isOk() {

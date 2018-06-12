@@ -3,33 +3,41 @@ package com.hepangda.ttms.model;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.hepangda.ttms.annotation.QueryKey;
 import com.hepangda.ttms.annotation.QueryTable;
+import com.hepangda.ttms.annotation.ValidateKey;
 
 @QueryTable("Movie")
 public class Movie {
+
     @JSONField(name = "id")
     @QueryKey(value = "Mov_ID", delete = true, insert = false, primaryKey = true)
     private int id;
 
+    @ValidateKey(maxLen = 80, errno = 308)
     @JSONField(name = "name")
     @QueryKey("Mov_Name")
     private String name;
 
+    @ValidateKey(maxRange = 16, errno = 309)
     @JSONField(name = "type")
     @QueryKey("Mov_Type")
     private int type;
 
+    @ValidateKey(maxRange = 4, errno = 310)
     @JSONField(name = "status")
     @QueryKey("Mov_Status")
     private int status;
 
+    @ValidateKey(maxRange = 9, errno = 311)
     @JSONField(name = "religon")
     @QueryKey("Mov_Description")
     private int religon;
 
+    @ValidateKey(maxLen = 150, errno = 312)
     @JSONField(name = "description")
     @QueryKey("Mov_Description")
     private String description;
 
+    @ValidateKey(spf = 0, errno = 306)
     @JSONField(name = "time")
     @QueryKey(value = "Mov_Time", select = false)
     private String time;

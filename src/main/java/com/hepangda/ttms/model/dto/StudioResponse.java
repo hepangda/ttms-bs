@@ -6,30 +6,30 @@ import com.hepangda.ttms.model.Studio;
 import java.util.ArrayList;
 
 public class StudioResponse {
-    @JSONField (name = "ok")
+    @JSONField(name = "ok")
     private boolean ok;
-    @JSONField (name = "message")
-    private String  message;
-    @JSONField (name = "studios")
+    @JSONField(name = "message")
+    private String message;
+    @JSONField(name = "studios")
     private ArrayList<Studio> studios;
 
-    public StudioResponse(boolean ok , String message) {
+    public StudioResponse(boolean ok, String message) {
         this.ok = ok;
         this.message = message;
     }
 
-    public StudioResponse(boolean ok , String message , ArrayList<Studio> studios){
+    public StudioResponse(boolean ok, String message, ArrayList<Studio> studios) {
         this.ok = ok;
         this.message = message;
         this.studios = studios;
     }
 
-    public static StudioResponse createAddEditDelete(boolean ok , String message) {
-        return new StudioResponse(ok , message);
+    public static StudioResponse createAddEditDelete(boolean ok, String message) {
+        return new StudioResponse(ok, message);
     }
 
-    public static StudioResponse createFetch(boolean ok , String message , ArrayList<Studio> studios) {
-        return new StudioResponse(ok , message , studios);
+    public static StudioResponse createFetch(boolean ok, String message, ArrayList<Studio> studios) {
+        return new StudioResponse(ok, message, studios);
     }
 
     public boolean isOk() {

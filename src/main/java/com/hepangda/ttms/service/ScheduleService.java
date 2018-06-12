@@ -13,32 +13,34 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ScheduleService {
-    public static ScheduleResponse add(HttpSession session, ScheduleRequest ureq){
+    public static ScheduleResponse add(HttpSession session, ScheduleRequest ureq) {
         IScheduleDAO dao = DAOFactory.createScheduleDAO();
         int res = dao.add(ureq.getStudio());
-        if(res == 401)
+        if (res == 401)
             return ScheduleResponse.createAddEditDelete(true, Errno.getMessage(res));
         return ScheduleResponse.createAddEditDelete(false, Errno.getMessage(res));
     }
 
-    public static ScheduleResponse edit(HttpSession session,ScheduleRequest uerq){
+    public static ScheduleResponse edit(HttpSession session, ScheduleRequest uerq) {
         IScheduleDAO dao = DAOFactory.createScheduleDAO();
         int res = dao.modify(uerq.getStudio());
-        if(res == 402)
+        if (res == 402)
             return ScheduleResponse.createAddEditDelete(true, Errno.getMessage(res));
         return ScheduleResponse.createAddEditDelete(false, Errno.getMessage(res));
     }
-    public static ScheduleResponse delete(HttpSession session,ScheduleRequest uerq){
+
+    public static ScheduleResponse delete(HttpSession session, ScheduleRequest uerq) {
         IScheduleDAO dao = DAOFactory.createScheduleDAO();
         int res = dao.delete(uerq.getStudio());
-        if(res == 403)
+        if (res == 403)
             return ScheduleResponse.createAddEditDelete(true, Errno.getMessage(res));
         return ScheduleResponse.createAddEditDelete(false, Errno.getMessage(res));
     }
-    public static ScheduleResponse fetch(HttpSession session,ScheduleRequest uerq){
+
+    public static ScheduleResponse fetch(HttpSession session, ScheduleRequest uerq) {
         IScheduleDAO dao = DAOFactory.createScheduleDAO();
-        QueryResult<Schedule> qr= dao.query(uerq.getStudio());
-        return ScheduleResponse.createFetch(qr.getRetno()==404, Errno.getMessage(qr.getRetno()),qr.getResults());
+        QueryResult<Schedule> qr = dao.query(uerq.getStudio());
+        return ScheduleResponse.createFetch(qr.getRetno() == 404, Errno.getMessage(qr.getRetno()), qr.getResults());
     }
 
 }

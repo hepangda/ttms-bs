@@ -1,10 +1,8 @@
 package com.hepangda.ttms.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hepangda.ttms.model.Employee;
 import com.hepangda.ttms.model.dto.EmployeeRequest;
 import com.hepangda.ttms.model.dto.EmployeeResponse;
-import com.hepangda.ttms.model.dto.LoginRequest;
 import com.hepangda.ttms.service.EmployeeService;
 import com.hepangda.ttms.util.ExtendedServlet;
 
@@ -13,16 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
-
-/*
-    POST 添加
-    PUT 修改
-    DELETE 删除
-    GET 获取
-
-    currentUser
- */
 
 @WebServlet("/api/employee")
 public class EmployeeServlet extends ExtendedServlet {
@@ -40,16 +28,6 @@ public class EmployeeServlet extends ExtendedServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         EmployeeRequest ureq = getUR(req, RequestType.GET);
-        Map<String, String[]> m = req.getParameterMap();
-
-        m.forEach((String k, String v[]) -> {
-            System.out.print(k + ":");
-            for (String s: v) {
-                System.out.print(" " + s);
-            }
-            System.out.println();
-        });
-
         EmployeeResponse ures = EmployeeService.fetch(req.getSession(), ureq);
         resp.getWriter().println(JSON.toJSONString(ures));
     }

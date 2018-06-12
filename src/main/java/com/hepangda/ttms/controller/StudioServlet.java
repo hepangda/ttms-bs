@@ -30,7 +30,6 @@ public class StudioServlet extends ExtendedServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         StudioRequest ureq = getUR(req, RequestType.GET);
-        System.out.println(JSON.toJSONString(ureq));
         StudioResponse ures = StudioService.fetch(req.getSession(), ureq);
         resp.getWriter().println(JSON.toJSONString(ures));
     }

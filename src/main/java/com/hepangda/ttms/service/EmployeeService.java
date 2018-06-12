@@ -22,7 +22,12 @@ public class EmployeeService {
     }
 
     public static EmployeeResponse modify(HttpSession sesion, EmployeeRequest ureq) {
-        return null;
+        IEmployeeDAO iedao = DAOFactory.createEmployeeDAO();
+        int errno = iedao.update(ureq.getEmployees());
+        if (errno == 106) {
+            return EmployeeResponse.createAddFetch(true, Errno.getMessage(errno));
+        }
+        return EmployeeResponse.createAddFetch(false, Errno.getMessage(errno));
     }
 
     public static EmployeeResponse fetch(HttpSession sesion, EmployeeRequest ureq) {
@@ -35,6 +40,11 @@ public class EmployeeService {
     }
 
     public static EmployeeResponse delete(HttpSession sesion, EmployeeRequest ureq) {
-        return null;
+        IEmployeeDAO iedao = DAOFactory.createEmployeeDAO();
+        int errno = iedao.delete(ureq.getEmployees().getId());
+        if (errno == 105) {
+            return EmployeeResponse.createAddFetch(true, Errno.getMessage(errno));
+        }
+        return EmployeeResponse.createAddFetch(false, Errno.getMessage(errno));
     }
 }
