@@ -26,7 +26,15 @@ public class DAOFactory {
     public static ISeatDAO createSeatDAO() {
         return new SeatDAO();
     }
-    public static ISalesTicketDAO createSalesTicketDAO(){ return new SalesTicketDAO();}
+    public static ISalesTicketDAO createSalesTicketDAO(){
+        return new SalesTicketDAO();
+    }
+    public static ISaleFoodsDAO createSaleFoodsDAO(){
+        return new SaleFoodsDAO();
+    }
+    public static IScheduleFetchDAO createScheduleFetchDAO(){
+        return new ScheduleFetchDAO();
+    }
 }
 
 

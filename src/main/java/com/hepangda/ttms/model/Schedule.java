@@ -3,6 +3,7 @@ package com.hepangda.ttms.model;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.hepangda.ttms.annotation.QueryKey;
 import com.hepangda.ttms.annotation.QueryTable;
+import com.hepangda.ttms.annotation.ValidateKey;
 
 @QueryTable("Schedule")
 public class Schedule {
@@ -14,9 +15,6 @@ public class Schedule {
     @QueryKey("Sch_Time")
     private String time;
 
-    @JSONField(name = "timeEnd")
-    private String timeEnd;
-
     @JSONField(name = "movid")
     @QueryKey("Sch_MovID")
     private int movID;
@@ -25,6 +23,7 @@ public class Schedule {
     @QueryKey("Sch_StuID")
     private int stuID;
 
+    @ValidateKey(minRange = 1,errno = 405)
     @JSONField(name = "price")
     @QueryKey("Sch_Price")
     private int price;

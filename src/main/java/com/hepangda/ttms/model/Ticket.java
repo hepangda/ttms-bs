@@ -26,6 +26,8 @@ public class Ticket {
         this.id = id;
     }
 
+
+
     public Ticket(int schid, int seatid, int status) {
         this.schid = schid;
         this.seatid = seatid;

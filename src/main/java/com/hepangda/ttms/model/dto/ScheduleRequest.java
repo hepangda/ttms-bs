@@ -7,8 +7,8 @@ public class ScheduleRequest {
     @JSONField(name = "type")
     private String type;
 
-    @JSONField(name = "studio")
-    private Schedule studio;
+    @JSONField(name = "schedule")
+    private Schedule schedule;
 
     @JSONField(name = "page")
     private int page;
@@ -24,12 +24,12 @@ public class ScheduleRequest {
         this.type = type;
     }
 
-    public Schedule getStudio() {
-        return studio;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
-    public void setStudio(Schedule studio) {
-        this.studio = studio;
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     public int getPage() {

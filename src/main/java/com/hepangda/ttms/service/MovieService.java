@@ -81,7 +81,7 @@ public class MovieService {
             return MovieResponse.createAddEditDelete(true, Errno.getMessage(res));
         }
 
-        return MovieResponse.createAddEditDelete(false, Errno.getMessage(res));
+        return MovieResponse.createAddEditDelete(false, Errno.getMessage(315));
     }
 
     public static MovieResponse fetch(HttpSession session, MovieRequest ureq) {
@@ -99,6 +99,7 @@ public class MovieService {
 
     public static MovieResponse delete(HttpSession session, MovieRequest ureq) {
         IMovieDAO dao = DAOFactory.createMovieDAO();
+
         int err = verify(ureq);
         if (err != 0) {
             return MovieResponse.createAddEditDelete(false, Errno.getMessage(err));
@@ -106,7 +107,7 @@ public class MovieService {
         int res = dao.delete(ureq.getMovies());
         if (res == 302)
             return MovieResponse.createAddEditDelete(true, Errno.getMessage(res));
-        return MovieResponse.createAddEditDelete(false, Errno.getMessage(res));
+        return MovieResponse.createAddEditDelete(false, Errno.getMessage(314));
     }
 }
 
