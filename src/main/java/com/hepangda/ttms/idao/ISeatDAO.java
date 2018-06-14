@@ -16,4 +16,5 @@ public interface ISeatDAO {
 
     QueryResult<Seat> query(Seat seat);
 
+    void close();
 }

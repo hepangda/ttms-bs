@@ -13,7 +13,7 @@ import java.util.ArrayList;
 class BaseDAO {
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "980217";
-    private static final String DB_CONNSTR = "jdbc:mysql://192.168.200.3:3306/ttms?serverTimezone=UTC&useSSL=false";
+    private static final String DB_CONNSTR = "jdbc:mysql://192.168.200.3:3306/ttmss?serverTimezone=UTC&useSSL=false";
 
     private Connection _Conn;
 
@@ -25,6 +25,14 @@ class BaseDAO {
             ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
             System.err.println("Cannot found MySQL/JDBC Driver.");
+            ex.printStackTrace();
+        }
+    }
+
+    public void close() {
+        try {
+            _Conn.close();
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
@@ -120,9 +128,10 @@ class BaseDAO {
 
     <T> QueryResult<T> normalSelect(T tk, int failedErrno, int successErrno) {
         QueryResult<T> qr = new QueryResult<>(null, failedErrno);
-        try {
+        try (
             PreparedStatement stmt = getSelectStatement(tk);
             ResultSet rs = stmt.executeQuery();
+        ){
             Field[] fields = tk.getClass().getDeclaredFields();
 
             ArrayList<T> alrs = new ArrayList<>();
@@ -211,10 +220,8 @@ class BaseDAO {
     }
 
     <T> int normalInsert(T tk, int failedErrno, int successErrno) {
-        try {
-            PreparedStatement stmt = getInsertStatement(true, tk);
+        try (PreparedStatement stmt = getInsertStatement(true, tk)) {
             int rs = stmt.executeUpdate();
-
             if (rs > 0)
                 return successErrno;
         } catch (Exception ex) {
@@ -280,10 +287,9 @@ class BaseDAO {
     }
 
     <T> int normalDelete(T tk, int failedErrno, int successErrno) {
-        try {
-            PreparedStatement stmt = getDeleteStatement(tk);
+        try (PreparedStatement stmt = getDeleteStatement(tk)) {
+            System.err.println(stmt);
             stmt.executeUpdate();
-
             return successErrno;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -328,13 +334,16 @@ class BaseDAO {
             for (Field f : fields) {
                 f.setAccessible(true);
                 if (notZeroValue(f, obj)) {
-                    first = false;
                     QueryKey qka = f.getAnnotation(QueryKey.class);
                     if (qka != null && qka.primaryKey()) {
-                        baseString.append(" WHERE ");
+                        if (first) {
+                            first = false;
+                            baseString.append(" WHERE ");
+                        } else {
+                            baseString.append(" AND ");
+                        }
                         baseString.append(qka.value());
                         baseString.append("=?");
-                        break;
                     }
                 }
             }
@@ -380,8 +389,7 @@ class BaseDAO {
     }
 
     <T> int normalUpdate(T tk, int failedErrno, int successErrno) {
-        try {
-            PreparedStatement stmt = getUpdateStatement(tk);
+        try (PreparedStatement stmt = getUpdateStatement(tk)) {
             stmt.executeUpdate();
             return successErrno;
         } catch (Exception ex) {

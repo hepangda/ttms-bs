@@ -13,4 +13,6 @@ public interface IScheduleDAO {
     int modify(Schedule sche);
 
     QueryResult<Schedule> query(Schedule sche);
+
+    void close();
 }

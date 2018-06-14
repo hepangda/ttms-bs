@@ -13,4 +13,6 @@ public interface IMovieDAO {
     int modify(Movie mov);
 
     QueryResult<Movie> query(Movie mov);
+
+    void close();
 }

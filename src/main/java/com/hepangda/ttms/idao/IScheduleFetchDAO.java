@@ -11,4 +11,6 @@ import com.hepangda.ttms.util.QueryResult;
 //         price: (int)场次价格
 public interface IScheduleFetchDAO {
     QueryResult<ScheduleFetch> query(ScheduleFetch sf);
+
+    void close();
 }

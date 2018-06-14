@@ -22,20 +22,12 @@ public class DAOFactory {
         return new StudioDAO();
     }
 
-    public static IFoodsDAO createFoodDAO() {
-        return new FoodsDAO();
-    }
-
     public static ITicketDAO createTicketDAO() {
         return new TicketDAO();
     }
 
     public static ISeatDAO createSeatDAO() {
         return new SeatDAO();
-    }
-
-    public static ISaleFoodsDAO createSaleFoodsDAO() {
-        return new SaleFoodsDAO();
     }
 
     public static IScheduleFetchDAO createScheduleFetchDAO() {

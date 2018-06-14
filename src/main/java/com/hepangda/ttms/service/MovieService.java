@@ -63,43 +63,38 @@ public class MovieService {
         IMovieDAO dao = DAOFactory.createMovieDAO();
         int err = verifyAndTime(uerq);
         if (err != 0) {
+            dao.close();
             return MovieResponse.createAddEditDelete(false, Errno.getMessage(err));
         }
-        if (dao.add(uerq.getMovies()) != 301)
-            return MovieResponse.createAddEditDelete(false, Errno.getMessage(307));
-        return MovieResponse.createAddEditDelete(true, Errno.getMessage(301));
+        int res = dao.add(uerq.getMovies());
+        dao.close();
+        return MovieResponse.createAddEditDelete(res == 301, Errno.getMessage(301));
     }
 
     public static MovieResponse edit(HttpSession session, MovieRequest uerq) {
         IMovieDAO dao = DAOFactory.createMovieDAO();
         int err = verifyAndTime(uerq);
         if (err != 0) {
+            dao.close();
             return MovieResponse.createAddEditDelete(false, Errno.getMessage(err));
         }
         int res = dao.modify(uerq.getMovies());
-        if (res == 303) {
-            return MovieResponse.createAddEditDelete(true, Errno.getMessage(res));
-        }
-
-        return MovieResponse.createAddEditDelete(false, Errno.getMessage(res));
+        dao.close();
+        return MovieResponse.createAddEditDelete(res == 303, Errno.getMessage(res));
     }
 
     public static MovieResponse fetch(HttpSession session, MovieRequest ureq) {
         IMovieDAO dao = DAOFactory.createMovieDAO();
         QueryResult<Movie> qr = dao.query(ureq.getMovies());
+        dao.close();
         return MovieResponse.createFetch(qr.getRetno() == 304, Errno.getMessage(qr.getRetno()), qr.getResults(), ureq);
     }
 
     public static MovieResponse delete(HttpSession session, MovieRequest ureq) {
         IMovieDAO dao = DAOFactory.createMovieDAO();
-        int err = verify(ureq);
-        if (err != 0) {
-            return MovieResponse.createAddEditDelete(false, Errno.getMessage(err));
-        }
         int res = dao.delete(ureq.getMovies());
-        if (res == 302)
-            return MovieResponse.createAddEditDelete(true, Errno.getMessage(res));
-        return MovieResponse.createAddEditDelete(false, Errno.getMessage(res));
+        dao.close();
+        return MovieResponse.createAddEditDelete(res == 302, Errno.getMessage(res));
     }
 }
 

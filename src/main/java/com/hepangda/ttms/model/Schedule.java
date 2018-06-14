@@ -14,9 +14,6 @@ public class Schedule {
     @QueryKey("Sch_Time")
     private String time;
 
-    @JSONField(name = "timeEnd")
-    private String timeEnd;
-
     @JSONField(name = "stuid")
     @QueryKey("Sch_StuID")
     private int stuID;

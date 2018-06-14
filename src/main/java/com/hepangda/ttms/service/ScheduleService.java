@@ -59,12 +59,13 @@ public class ScheduleService {
     public static ScheduleResponse add(HttpSession session, ScheduleRequest ureq) {
         IScheduleDAO dao = DAOFactory.createScheduleDAO();
         int err = verifyAndTime(ureq);
-        if(err!=0)
+        if(err!=0) {
+            dao.close();
             return ScheduleResponse.createAddEditDelete(true, Errno.getMessage(err));
+        }
         int res = dao.add(ureq.getSchedule());
-        if (res == 401)
-            return ScheduleResponse.createAddEditDelete(true, Errno.getMessage(res));
-        return ScheduleResponse.createAddEditDelete(false, Errno.getMessage(res));
+        dao.close();
+        return ScheduleResponse.createAddEditDelete(res == 401, Errno.getMessage(res));
     }
 
     public static ScheduleResponse edit(HttpSession session, ScheduleRequest ureq) {
@@ -73,28 +74,22 @@ public class ScheduleService {
         if(err!=0)
             return ScheduleResponse.createAddEditDelete(true, Errno.getMessage(err));
         int res = dao.modify(ureq.getSchedule());
-        if (res == 402)
-            return ScheduleResponse.createAddEditDelete(true, Errno.getMessage(res));
-        return ScheduleResponse.createAddEditDelete(false, Errno.getMessage(res));
+        dao.close();
+        return ScheduleResponse.createAddEditDelete(res == 402, Errno.getMessage(res));
     }
 
     public static ScheduleResponse delete(HttpSession session, ScheduleRequest ureq) {
         IScheduleDAO dao = DAOFactory.createScheduleDAO();
-
-        int err = verify(ureq);
-        if(err!=0){
-            return ScheduleResponse.createAddEditDelete(false, Errno.getMessage(err));
-        }
         int res = dao.delete(ureq.getSchedule());
-        if (res == 403)
-            return ScheduleResponse.createAddEditDelete(true, Errno.getMessage(res));
-        return ScheduleResponse.createAddEditDelete(false, Errno.getMessage(res));
+        dao.close();
+        return ScheduleResponse.createAddEditDelete(res == 403, Errno.getMessage(res));
     }
 
     public static ScheduleFetchResponse fetch(HttpSession session, ScheduleFetchRequest ureq) {
         //获得演出计划的同时,Schedule id ,Scheule time ,拿到Studio的name和Movie的URL,name,prcie;
         IScheduleFetchDAO dao = DAOFactory.createScheduleFetchDAO();
         QueryResult<ScheduleFetch> sfetch = dao.query(ureq.getSchedule());
+        dao.close();
         return ScheduleFetchResponse.createFetch(sfetch.getRetno() == 404, Errno.getMessage(sfetch.getRetno()), sfetch.getResults(), ureq);
     }
 

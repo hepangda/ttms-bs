@@ -14,37 +14,29 @@ public class EmployeeService {
     public static EmployeeResponse add(HttpSession session, EmployeeRequest ureq) {
         IEmployeeDAO iedao = DAOFactory.createEmployeeDAO();
         int errno = iedao.add(ureq.getEmployees());
-        if (errno == 103) {
-            return EmployeeResponse.createAddFetch(true, Errno.getMessage(errno));
-        }
 
-        return EmployeeResponse.createAddFetch(false, Errno.getMessage(errno));
+        iedao.close();
+        return EmployeeResponse.createAddFetch(errno == 103, Errno.getMessage(errno));
     }
 
     public static EmployeeResponse modify(HttpSession sesion, EmployeeRequest ureq) {
         IEmployeeDAO iedao = DAOFactory.createEmployeeDAO();
         int errno = iedao.update(ureq.getEmployees());
-        if (errno == 106) {
-            return EmployeeResponse.createAddFetch(true, Errno.getMessage(errno));
-        }
-        return EmployeeResponse.createAddFetch(false, Errno.getMessage(errno));
+        iedao.close();
+        return EmployeeResponse.createAddFetch(errno == 106, Errno.getMessage(errno));
     }
 
     public static EmployeeResponse fetch(HttpSession sesion, EmployeeRequest ureq) {
         IEmployeeDAO iedao = DAOFactory.createEmployeeDAO();
         QueryResult<Employee> errno = iedao.query(ureq.getEmployees());
-        if (errno.getRetno() == 104) {
-            return EmployeeResponse.createGet(true, Errno.getMessage(errno.getRetno()), errno.getResults(), ureq);
-        }
-        return EmployeeResponse.createGet(false, Errno.getMessage(errno.getRetno()), errno.getResults(), ureq);
+        iedao.close();
+        return EmployeeResponse.createGet(errno.getRetno() == 104, Errno.getMessage(errno.getRetno()), errno.getResults(), ureq);
     }
 
     public static EmployeeResponse delete(HttpSession sesion, EmployeeRequest ureq) {
         IEmployeeDAO iedao = DAOFactory.createEmployeeDAO();
         int errno = iedao.delete(ureq.getEmployees().getId());
-        if (errno == 105) {
-            return EmployeeResponse.createAddFetch(true, Errno.getMessage(errno));
-        }
-        return EmployeeResponse.createAddFetch(false, Errno.getMessage(errno));
+        iedao.close();
+        return EmployeeResponse.createAddFetch(errno == 105, Errno.getMessage(errno));
     }
 }

@@ -14,13 +14,27 @@ public class Errno {
         put(104, "Fetch employee success.");
         put(105, "Delete employee success.");
         put(106, "Update employee success.");
+        put(107, "Employee LoginNameLen Wrong.");
+        put(108, "Employee PasswordLen Wrong");
+        put(109, "Employee NameLen Wrong");
+        put(110, "Employee BornYear Wrong");
+        put(111, "Employee PhoneNumber Len Wrong");
+        put(112, "Employee Privilege Wrong ");
+        put(113, "Add Employee failed.");
+        put(114, " EmployeeRequest type wrong.");
         put(199, "Permission denied.");
 
-        put(200, "studio false");
+        put(200, "studio false.");
         put(201, "add studio success.");
         put(202, "delete studio success.");
         put(203, "update studio success.");
         put(204, "select studio success.");
+        put(205, "Studio namelen wrong.");
+        put(206, "Studio description wrong");
+        put(207, "Studio type wrong.");
+        put(208, "Studio rows wrong.");
+        put(209, "Studio cols wrong.");
+        put(210, "Studio operation wrong.");
 
         put(301,"Add Movie success");
         put(302,"Delete Movie success");
@@ -59,7 +73,8 @@ public class Errno {
         put(802,"Delete Ticket success");
         put(803,"Modify Ticket success");
         put(804,"Query Ticket success");
-
+        put(804,"return  Ticket failed");
+        put(805,"return  Ticket success");
 
         put(700, "Food failed");
         put(701, "Add Food success");

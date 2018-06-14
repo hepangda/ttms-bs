@@ -15,4 +15,6 @@ public interface IStudioDAO {
     int modify(Studio stu);
 
     QueryResult<Studio> query(Studio stu);
+
+    void close();
 }

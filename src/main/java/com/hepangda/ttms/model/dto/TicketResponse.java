@@ -15,6 +15,17 @@ public class TicketResponse {
     @JSONField(name = "tickets")
     private ArrayList<Ticket> tickets;
 
+    @JSONField(name = "results")
+    private String[][] results;
+
+    public String[][] getResults() {
+        return results;
+    }
+
+    public void setResults(String[][] results) {
+        this.results = results;
+    }
+
     public TicketResponse(boolean ok, String messqge, ArrayList<Ticket> tickets) {
         this.ok = ok;
         this.messqge = messqge;
@@ -26,11 +37,21 @@ public class TicketResponse {
         this.messqge = messqge;
     }
 
+    public TicketResponse(boolean ok, String messqge, String[][] results) {
+        this.ok = ok;
+        this.messqge = messqge;
+        this.results = results;
+    }
+
+    public static TicketResponse createFetch(boolean ok, String messqge, String[][] arr) {
+        return new TicketResponse(ok, messqge, arr);
+    }
+
     public static TicketResponse createAddEditDelete(boolean ok, String messqge) {
         return new TicketResponse(ok, messqge);
     }
 
-    public static TicketResponse createFetch(boolean ok, String messqge, ArrayList<Ticket> tickets) {
+    public static TicketResponse createFetchx(boolean ok, String messqge, ArrayList<Ticket> tickets) {
         return new TicketResponse(ok, messqge, tickets);
     }
 

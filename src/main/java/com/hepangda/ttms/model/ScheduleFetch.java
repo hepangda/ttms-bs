@@ -16,7 +16,7 @@ import com.hepangda.ttms.annotation.QueryTable;
 @QueryTable("view_SchFetch")
 public class ScheduleFetch {
     @JSONField(name = "id")
-    @QueryKey("Stu_ID")
+    @QueryKey("Sch_ID")
     private int id;
 
     @JSONField(name = "time")

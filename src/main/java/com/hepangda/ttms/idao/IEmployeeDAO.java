@@ -19,4 +19,6 @@ public interface IEmployeeDAO {
     QueryResult<Employee> query(Employee ek);
 
     int update(Employee emp);
+
+    void close();
 }

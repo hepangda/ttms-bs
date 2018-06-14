@@ -34,8 +34,7 @@ public class LoginServlet extends ExtendedServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        LoginRequest ureq = getUR(req, RequestType.POST);
-        LoginResponse ures = LoginService.checkLogin(req.getSession(), ureq);
+        LoginResponse ures = LoginService.checkLogin(req.getSession(), null);
         resp.getWriter().println(JSON.toJSONString(ures));
     }
 
@@ -44,5 +43,10 @@ public class LoginServlet extends ExtendedServlet {
         LoginRequest ureq = getUR(req, RequestType.POST);
         LoginResponse ures = LoginService.login(req.getSession(), ureq);
         resp.getWriter().println(JSON.toJSONString(ures));
+    }
+
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doOptions(req, resp);
     }
 }

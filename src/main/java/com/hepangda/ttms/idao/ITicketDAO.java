@@ -13,4 +13,6 @@ public interface ITicketDAO {
     int update(Ticket Tkt);
 
     QueryResult<Ticket> query(Ticket Tkt);
+
+    void close();
 }

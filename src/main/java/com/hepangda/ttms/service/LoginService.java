@@ -18,18 +18,14 @@ public class LoginService {
 
         if (res.getRetno() == 101) {
             session.setAttribute("currentUser", res.getResults().get(0));
-            return LoginResponse.createLoginLogout(true, Errno.getMessage(res.getRetno()));
         }
-
-        return LoginResponse.createLoginLogout(false, Errno.getMessage(res.getRetno()));
+        dao.close();
+        return LoginResponse.createLoginLogout(res.getRetno() == 101, Errno.getMessage(res.getRetno()));
     }
 
     public static LoginResponse logout(HttpSession session, LoginRequest ureq) {
-        if (session.getAttribute("currentUser") == null) {
-            return LoginResponse.createLoginLogout(false, "You are not logged in.");
-        }
-
-        return LoginResponse.createLoginLogout(true, "You are now not logged yet.");
+        session.invalidate();
+        return LoginResponse.createLoginLogout(session.getAttribute("currentUser") != null, "You are now not logged yet.");
     }
 
     public static LoginResponse checkLogin(HttpSession session, LoginRequest ureq) {

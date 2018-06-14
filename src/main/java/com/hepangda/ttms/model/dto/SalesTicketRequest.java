@@ -1,17 +1,17 @@
 package com.hepangda.ttms.model.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.hepangda.ttms.annotation.ValidateKey;
-import com.hepangda.ttms.model.Studio;
+import com.hepangda.ttms.model.Ticket;
 
-public class StudioRequest {
-    @ValidateKey(enums = {"Add", "Edit", "Fetch", "Delete"}, errno = 210)
+public class SalesTicketRequest {
     @JSONField(name = "type")
     private String type;
-    @JSONField(name = "studio")
-    private Studio studio;
+    @JSONField(name="ticket")
+    private Ticket tickets;
+
     @JSONField(name = "page")
     private int page;
+
     @JSONField(name = "pageby")
     private int pageby;
 
@@ -23,12 +23,12 @@ public class StudioRequest {
         this.type = type;
     }
 
-    public Studio getStudio() {
-        return studio;
+    public Ticket getTickets() {
+        return tickets;
     }
 
-    public void setStudio(Studio studio) {
-        this.studio = studio;
+    public void setTickets(Ticket tickets) {
+        this.tickets = tickets;
     }
 
     public int getPage() {
@@ -47,4 +47,3 @@ public class StudioRequest {
         this.pageby = pageby;
     }
 }
-

@@ -7,19 +7,19 @@ import com.hepangda.ttms.annotation.QueryTable;
 @QueryTable("Seat")
 public class Seat {
     @JSONField(name = "id")
-    @QueryKey(value = "Set_ID", primaryKey = true, delete = true, insert = false)
+    @QueryKey(value = "Set_ID", delete = true, insert = false)
     private int id;
 
-    @JSONField(name = "Stu_id")
-    @QueryKey(value = "Set_StuID", delete = true)
+    @JSONField(name = "stuid")
+    @QueryKey(value = "Set_StuID", delete = true, primaryKey = true)
     private int Stu_id;
 
     @JSONField(name = "row")
-    @QueryKey(value = "Set_Row", delete = true)
+    @QueryKey(value = "Set_Row", delete = true, primaryKey = true)
     private int row;
 
     @JSONField(name = "col")
-    @QueryKey(value = "Set_Col", delete = true)
+    @QueryKey(value = "Set_Col", delete = true, primaryKey = true)
     private int col;
 
     @JSONField(name = "type")
@@ -40,6 +40,10 @@ public class Seat {
     }
 
     public Seat() {
+    }
+
+    public Seat(int id) {
+        this.id = id;
     }
 
     public int getID() {
