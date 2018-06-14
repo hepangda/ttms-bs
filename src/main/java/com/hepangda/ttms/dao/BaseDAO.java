@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 class BaseDAO {
     private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "980217";
-    private static final String DB_CONNSTR = "jdbc:mysql://192.168.200.3:3306/ttmss?serverTimezone=UTC&useSSL=false";
+    private static final String DB_PASSWORD = "173874";
+    private static final String DB_CONNSTR = "jdbc:mysql://localhost:3306/ttms?serverTimezone=UTC&useSSL=false";
 
     private Connection _Conn;
 

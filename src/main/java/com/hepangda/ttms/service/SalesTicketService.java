@@ -45,9 +45,9 @@ public class SalesTicketService {
         return SalesTicketResponse.createAddEditDelete(false,Errno.getMessage(901));
     }
 
-    public static SalesTicketResponse fetch(HttpSession session, SalesTicketRequest ureq){
-        ITicketDAO dao = DAOFactory.createTicketDAO();
-        QueryResult<Ticket> qr = dao.query(ureq.getTickets());
-        return SalesTicketResponse.createFetch(qr.getRetno()==804, Errno.getMessage(qr.getRetno()),qr.getResults(),ureq);
-    }
+//    public static SalesTicketResponse fetch(HttpSession session, SalesTicketRequest ureq){
+//        ITicketDAO dao = DAOFactory.createTicketDAO();
+//        QueryResult<Ticket> qr = dao.query(ureq.getTickets());
+//        return SalesTicketResponse.createFetch(qr.getRetno()==804, Errno.getMessage(qr.getRetno()),qr.getResults(),ureq);
+//    }
 }

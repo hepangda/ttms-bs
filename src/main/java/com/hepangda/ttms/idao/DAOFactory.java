@@ -33,7 +33,10 @@ public class DAOFactory {
     public static IScheduleFetchDAO createScheduleFetchDAO() {
         return new ScheduleFetchDAO();
     }
-}
 
+    public static ISalesTicketDAO createSalesTicketDAO() {
+        return new SalesTicketDAO();
+    }
+}
 
 
