@@ -36,6 +36,7 @@ public class Errno {
         put(209, "Studio cols wrong.");
         put(210, "Studio operation wrong.");
 
+
         put(301,"Add Movie success");
         put(302,"Delete Movie success");
         put(303,"Modify Movie success");
@@ -47,14 +48,21 @@ public class Errno {
         put(309,"Movie Type Wrong");
         put(310,"Movie Status Wrong");
         put(311,"Movie Religion Wrong");
-        put(312,"Movie Type Wrong");
+        put(312,"Movie description Wrong");
+        put(313,"MovieRequest type Wrong");
+        put(314,"Delete Movie Failed");
+        put(315,"Edit Movie Failed");
+        put(316,"Fetch Movie Failed");
 
         put(400," Schedule failed");
         put(401,"Add Schedule success");
         put(402,"Modify Schedule success");
         put(403,"Delete Schedule success");
         put(404,"Query Schedule success");
-
+        put(405,"Sche_Price Range wrong");
+        put(406,"Sche Time Length wrong");
+        put(407,"Sche_Time Range wrong");
+        put(408,"Sche_Time Type wrong");
 
         put(501, "Add seat success.");
         put(502, "Delete seat success.");
@@ -68,6 +76,7 @@ public class Errno {
         put(702, "Modify Food success");
         put(703, "Query Food Success");
         put(704, "Delete Food Success");
+
         put(800," Ticket failed");
         put(801,"Add Ticket success");
         put(802,"Delete Ticket success");
@@ -76,16 +85,14 @@ public class Errno {
         put(804,"return  Ticket failed");
         put(805,"return  Ticket success");
 
-        put(700, "Food failed");
-        put(701, "Add Food success");
-        put(702, "Modify Food success");
-        put(703, "Query Food Success");
-        put(704, "Delete Food Success");
 
 
         put(900, "SaleFood failed");
         put(901, "sale Food success");
         put(902, "Query Food success");
+
+        put(110, "Query view_SchFetch success");
+        put(111, "Query view_SchFetch failed");
     }};
 
     public static String getMessage(int errno) {

@@ -5,7 +5,7 @@ import com.hepangda.ttms.annotation.ValidateKey;
 import com.hepangda.ttms.model.Movie;
 
 public class MovieRequest {
-    @ValidateKey(enums = {"Add", "Edit", "Fetch", "Delete"}, errno = 312)
+    @ValidateKey(enums = {"Add", "Edit", "Fetch", "Delete"}, errno = 313)
     @JSONField(name = "type")
     private String type;
 
