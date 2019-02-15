@@ -14,19 +14,6 @@ import javax.servlet.http.HttpSession;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/*
-@JSONField(name = "type")
-    private String type;
-
-    @JSONField(name = "movie")
-    private Movie movies;
-
-    @JSONField(name ="page")
-    private int page;
-
-    @JSONField(name="pageby")
-    private int pageby;
- */
 public class MovieService {
     private static int verifyAndTime(MovieRequest uerq) {
         int err = Utils.validate(uerq);

@@ -1,0 +1,60 @@
+{
+  "name": "TTMS",
+  "version": "1.0.0",
+  "description": "影院票务管理系统",
+  "dependencies": {
+    "@icedesign/base": "^0.2.2",
+    "@icedesign/container": "^0.1.2",
+    "@icedesign/data-binder": "^0.1.4",
+    "@icedesign/form-binder": "^0.1.4",
+    "@icedesign/icon": "^0.1.1",
+    "@icedesign/img": "^0.1.1",
+    "@icedesign/label": "^0.1.2",
+    "@icedesign/layout": "^0.1.1",
+    "@icedesign/menu": "^0.1.1",
+    "@icedesign/skin": "^0.1.0",
+    "@icedesign/styled-menu": "^0.1.1",
+    "axios": "^0.18.0",
+    "bizcharts": "latest",
+    "classnames": "^2.2.5",
+    "enquire-js": "^0.1.3",
+    "foundation-symbol": "^0.1.0",
+    "jsonp": "^0.2.1",
+    "prop-types": "^15.6.1",
+    "qrcode.react": "^0.8.0",
+    "querystring": "^0.2.0",
+    "react": "^16.4.0",
+    "react-document-title": "^2.0.3",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.3",
+    "eslint": "^4.13.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
+    "ice-scripts": "^1.1.1"
+  },
+  "scripts": {
+    "start": "ice dev",
+    "build": "ice build",
+    "lint": "eslint . --ext '.js,.jsx' --fix"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.com",
+    "access": "public"
+  },
+  "buildConfig": {
+    "theme": "@icedesign/skin",
+    "entry": "src/index.js"
+  },
+  "scaffoldConfig": {
+    "name": "ice-design-lite",
+    "title": "ICE Design Lite",
+    "screenshot": "https://img.alicdn.com/tfs/TB1IM1JmuuSBuNjy1XcXXcYjFXa-1920-1080.png"
+  },
+  "title": "ttms-front"
+}
